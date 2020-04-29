@@ -33,12 +33,11 @@ module-margin-right = 1
 
 font-0 = FiraCode Nerd Font Mono:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=9:antialias=false;0
-font-2 = siji:pixelsize=9;1
-font-3 = Material Icons:style=Regular:pixelsize=8;1
+font-2 = P052:pixelsize=9;1
 
 modules-left = bspwm
 modules-center = date
-modules-right = wlan battery
+modules-right = wlan battery alsa
 
 tray-position = right
 tray-padding = 2
@@ -202,16 +201,18 @@ interval = 3.0
 format-connected = <ramp-signal> <label-connected>
 label-connected = %essid%
 
-format-disconnected =
+format-disconnected = <label-disconnected>
+label-disconnected = %essid%
+
 ;format-disconnected = <label-disconnected>
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
+ramp-signal-0 = 直
+ramp-signal-1 = 直
+ramp-signal-2 = 直
+ramp-signal-3 = 直
+ramp-signal-4 = 直
 ramp-signal-foreground = ${colors.icons}
 
 [module/date]
@@ -237,26 +238,24 @@ full-at = 98
 
 format-charging = <animation-charging> <label-charging>
 
-format-discharging = <animation-discharging> <label-discharging>
+format-discharging = <ramp-capacity> <label-discharging>
 
 format-full-prefix = " "
 format-full-prefix-foreground = ${colors.icons}
 
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
 ramp-capacity-foreground = ${colors.icons}
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
+animation-charging-0 = 
 animation-charging-foreground = ${colors.icons}
 animation-charging-framerate = 750
 
-animation-discharging-0 = 
-animation-discharging-1 = 
-animation-discharging-2 = 
+animation-discharging-0 = 
 animation-discharging-foreground = ${colors.icons}
 animation-discharging-framerate = 750
 
@@ -289,4 +288,58 @@ screenchange-reload = true
 margin-top = 5
 margin-bottom = 5
 
-; vim:ft=dosini
+[module/alsa]
+type = internal/alsa
+
+; Soundcard to be used
+; Usually in the format hw:# where # is the card number
+; You can find the different card numbers in `/proc/asound/cards`
+master-soundcard = default
+speaker-soundcard = default
+headphone-soundcard = default
+
+; Name of the master, speaker and headphone mixers
+; Use the following command to list available mixer controls:
+; $ amixer scontrols | sed -nr "s/.*'([[:alnum:]]+)'.*/\1/p"
+; If master, speaker or headphone-soundcard isn't the default, 
+; use `amixer -c # scontrols` instead where # is the number 
+; of the master, speaker or headphone soundcard respectively
+;
+; Default: Master
+master-mixer = Master
+
+; Optionally define speaker and headphone mixers
+; Default: none
+speaker-mixer = Speaker
+; Default: none
+headphone-mixer = Headphone
+
+; NOTE: This is required if headphone_mixer is defined
+; Use the following command to list available device controls
+; $ amixer controls | sed -r "/CARD/\!d; s/.*=([0-9]+).*name='([^']+)'.*/printf '%3.0f: %s\n' '\1' '\2'/e" | sort
+; You may also need to use `amixer -c # controls` as above for the mixer names
+; Default: none
+headphone-id = 9
+
+; Use volume mapping (similar to amixer -M and alsamixer), where the increase in volume is linear to the ear
+; Default: false
+mapped = true
+
+; Interval for volume increase/decrease (in percent points)
+; Default: 5
+interval = 5
+
+format-volume = <ramp-volume> <label-volume>
+
+label-volume = %percentage%%
+
+format-muted = <label-muted>
+
+label-muted = ﱝ muted
+label-muted-foreground = #666
+
+; Only applies if <ramp-volume> is used
+ramp-volume-0 = 奄
+ramp-volume-1 = 奔
+ramp-volume-2 = 墳
+ramp-volume-foreground = ${colors.icons}

@@ -2,9 +2,34 @@
 # wm independent hotkeys
 #
 
+# printscreen
+@Print
+	scrot -s
+
+# brightness keys
+XF86MonBrightnessUp
+	xbacklight -inc 10
+
+XF86MonBrightnessDown
+	xbacklight -dec 10
+
+# volume keys
+XF86AudioLowerVolume
+	amixer -q set Master 5%-
+
+XF86AudioRaiseVolume
+	amixer -q set Master 5%+
+
+XF86AudioMute
+	$(amixer get Master | grep off > /dev/null && amixer -q set Master unmute) || amixer -q set Master mute
+
 # terminal emulator
 super + Return
 	alacritty
+
+# browser
+super + w
+	brave
 
 # program launcher
 super + @space
@@ -23,7 +48,7 @@ super + alt + {q,r}
 	bspc {quit,wm -r}
 
 # close and kill
-super + {_,shift + }w
+super + {_,shift + }q
 	bspc node -{c,k}
 
 # alternate between the tiled and monocle layout

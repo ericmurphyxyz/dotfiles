@@ -43,7 +43,7 @@ tray-position = right
 tray-padding = 2
 ;tray-background = #0063ff
 
-;wm-restack = bspwm
+wm-restack = bspwm
 ;wm-restack = i3
 
 ;override-redirect = true
@@ -228,7 +228,7 @@ time-alt = %H:%M:%S
 format-prefix = 
 format-prefix-foreground = ${colors.icons}
 
-label = %time% | %date%
+label = %time% %date%
 
 [module/battery]
 type = internal/battery

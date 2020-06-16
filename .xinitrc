@@ -1,5 +1,5 @@
 systemctl --user import-environment DISPLAY
 
 sxhkd &
-picom &
+picom --experimental-backends &
 exec bspwm

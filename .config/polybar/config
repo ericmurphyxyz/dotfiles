@@ -1,12 +1,12 @@
 [colors]
-bg = #171717  
+bg = #00
 gray = #585858
 black = #090909
-red = #a54242
-background-alt = #444
+red = #fc618d
+background-alt = #3306080a
 foreground-alt = #B8B69A
-icons = #D44420
-primary = #ffb52a
+icons = #FFFFFF
+primary = #FFFFFF
 secondary = #e60053
 alert = #bd2c40
 
@@ -17,7 +17,7 @@ bottom = false
 width = 100%
 height = 30
 
-# background = ${colors.bg}
+background = ${colors.bg}
 # foreground = ${colors.fg}
 
 line-size = 3
@@ -36,8 +36,7 @@ font-1 = unifont:fontformat=truetype:size=9:antialias=false;0
 font-2 = P052:pixelsize=9;1
 
 modules-left = bspwm
-modules-center = date
-modules-right = wlan battery alsa
+modules-right = date wlan battery alsa
 
 tray-position = right
 tray-padding = 2
@@ -343,3 +342,6 @@ ramp-volume-0 = 奄
 ramp-volume-1 = 奔
 ramp-volume-2 = 墳
 ramp-volume-foreground = ${colors.icons}
+
+; Inter-process messaging
+enable-ipc = true

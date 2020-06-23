@@ -23,6 +23,10 @@ XF86AudioRaiseVolume
 XF86AudioMute
 	$(amixer get Master | grep off > /dev/null && amixer -q set Master unmute) || amixer -q set Master mute
 
+# lockscreen
+super + x
+	slock
+
 # terminal emulator
 super + Return
 	alacritty
@@ -31,6 +35,9 @@ super + Return
 super + w
 	brave
 
+super + c
+	chromium --force-dark-mode --enable-features=WebUIDarkMode
+
 # program launcher
 super + @space
 	dmenu_run
@@ -38,6 +45,9 @@ super + @space
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
+
+super + y
+	polybar-msg cmd toggle; bspc config top_padding 50
 
 #
 # bspwm hotkeys
@@ -63,6 +73,7 @@ super + y
 super + g
 	bspc node -s biggest
 
+#
 #
 # state/flags
 #
@@ -144,3 +155,9 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+super + shift + plus
+	bspc config top_padding 30;bspc config left_padding 0;bspc config right_padding 0;bspc config bottom_padding 0
+
+super + shift + minus
+	bspc config top_padding 80;bspc config left_padding 100;bspc config right_padding 100;bspc config bottom_padding 50

@@ -7,6 +7,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'sheerun/vim-polyglot'
 Plug 'ghifarit53/tokyonight.vim'
 Plug 'itchyny/lightline.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
@@ -27,6 +28,10 @@ let g:lightline = {'colorscheme' : 'tokyonight'}
 set laststatus=2
 
 " line numbers
-set number
+set relativenumber
 
 hi Normal guibg=NONE ctermbg=NONE
+
+ " ------COC SETTINGS------
+" prettier command for coc
+command! -nargs=0 Prettier :CocCommand prettier.formatFile

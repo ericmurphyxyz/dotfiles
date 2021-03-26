@@ -34,6 +34,7 @@ bindkey '^e' end-of-line
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 alias vim='nvim'
 alias code='vscodium'
+alias lf='lf-ueberzug'
 
 # theme/plugins
 source ~/.config/zsh/powerlevel10k/powerlevel10k.zsh-theme

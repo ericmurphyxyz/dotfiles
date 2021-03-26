@@ -1,0 +1,66 @@
+# Basic Settings
+set hidden true
+set ignorecase true
+set icons true
+
+# Custom Functions
+cmd mkdir ${{
+  printf "Directory Name: "
+  read ans
+  mkdir $ans
+}}
+
+cmd mkfile ${{
+  printf "File Name: "
+  read ans
+  $EDITOR $ans
+}}
+
+# Archive bindings
+cmd unarchive ${{
+  case "$f" in
+      *.zip) unzip "$f" ;;
+      *.tar.gz) tar -xzvf "$f" ;;
+      *.tar.bz2) tar -xjvf "$f" ;;
+      *.tar) tar -xvf "$f" ;;
+      *) echo "Unsupported format" ;;
+  esac
+}}
+
+# Execute exe
+cmd unexecute ${{
+	wine "$f"
+}}
+
+# Bindings
+# Remove some defaults
+map m
+map o
+map n
+map "'"
+map '"'
+map d
+
+map c $vscodium "$f"
+
+map au unarchive
+map ae unexecute
+
+# Basic Functions
+map . set hidden!
+map DD delete
+map v toggle
+map p paste
+map x cut
+map y copy
+map <enter> open
+map md mkdir
+map r rename
+map H top
+map L bottom
+map R reload
+map C clear
+map U unselect
+
+# Movement
+map gD cd ~/Downloads

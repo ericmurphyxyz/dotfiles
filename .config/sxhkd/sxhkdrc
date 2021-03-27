@@ -4,7 +4,10 @@
 
 # printscreen
 @Print
-	scrot -s
+	screenshot
+
+shift + @Print
+	screenshot select
 
 # brightness keys
 XF86MonBrightnessUp
@@ -26,7 +29,6 @@ XF86AudioMute
 # lockscreen
 super + x
 	slock
-
 
 # program launcher
 super + @space

@@ -16,6 +16,8 @@ cmd mkfile ${{
   $EDITOR $ans
 }}
 
+cmd setwallpaper %cp "$f" ~/.config/wall.jpg && xwallpaper --zoom "$f"
+
 # Archive bindings
 cmd unarchive ${{
   case "$f" in
@@ -55,6 +57,7 @@ map x cut
 map y copy
 map <enter> open
 map md mkdir
+map bg setwallpaper
 map r rename
 map H top
 map L bottom

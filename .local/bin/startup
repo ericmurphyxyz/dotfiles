@@ -41,5 +41,5 @@ else
     monitor_remove
 fi
 
-feh --bg-fill pix/papes/1589536099264.png
+xwallpaper --zoom ~/.config/wall.jpg
 $HOME/.config/polybar/launch.sh

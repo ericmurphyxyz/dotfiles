@@ -36,6 +36,7 @@ super + @space
 
 # make sxhkd reload its configuration files:
 super + Escape
+	~/.config/polybar/launch.sh
 	pkill -USR1 -x sxhkd
 
 #
@@ -57,6 +58,9 @@ super + {_,shift + }q
 
 super + f
 	bspc node focused.tiled -t fullscreen || bspc node focused.fullscreen -t tiled
+
+super + p
+	bspc node focused.floating -t tiled
 
 #
 # focus/swap
@@ -103,8 +107,8 @@ super + Return
 	$TERMINAL
 
 # browser
-super + {w, g, o, v, s, c}
-	{$BROWSER, gimp, obs, olive-editor, spotify, calibre}
+super + {w, g, o, v, s}
+	{$BROWSER, gimp, obs, olive-editor, spotify}
 
-super + {e, m}
-	$TERMINAL -e {lf-ueberzug, neomutt}
+super + {e, m, c, n}
+	$TERMINAL -e {lf-ueberzug, neomutt, calcurse, ncmpcpp}

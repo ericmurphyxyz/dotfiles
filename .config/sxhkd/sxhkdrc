@@ -16,6 +16,13 @@ XF86MonBrightnessUp
 XF86MonBrightnessDown
 	xbacklight -dec 10
 
+# media keys
+XF86Audio{Prev,Next}
+	playerctl {previous,next}
+
+XF86AudioPlay
+	playerctl play-pause
+
 # volume keys
 XF86AudioLowerVolume
 	pamixer -d 5 --allow-boost

@@ -35,7 +35,7 @@ monitor_remove() {
 	bspc desktop Desktop --remove # Remove temp desktops
 }
 
-if [[ $(xrandr -q | grep 'HDMI1 connected') ]]; then
+if [[ $(xrandr -q | grep "$external_monitor connected") ]]; then
     monitor_add
 else
     monitor_remove

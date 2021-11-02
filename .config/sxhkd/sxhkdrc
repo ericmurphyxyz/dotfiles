@@ -24,18 +24,18 @@ XF86AudioPlay
 	playerctl play-pause
 
 # volume keys
-XF86AudioLowerVolume
-	pamixer -d 5 --allow-boost
-
 XF86AudioRaiseVolume
-	pamixer -i 5 --allow-boost
+	changevolume up
+
+XF86AudioLowerVolume
+	changevolume down
 
 XF86AudioMute
-	pamixer -t
+	changevolume mute
 
 # lockscreen
 super + x
-	slock
+	systemctl suspend
 
 # program launcher
 super + @space

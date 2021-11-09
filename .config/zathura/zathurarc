@@ -1,0 +1,7 @@
+set sandbox none
+set selection-clipboard clipboard
+map u scroll half-up
+map d scroll half-down
+map K zoom in
+map J zoom out
+map g goto top

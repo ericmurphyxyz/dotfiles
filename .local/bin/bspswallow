@@ -1,0 +1,70 @@
+#!/bin/sh
+
+# Get class of a wid
+get_class() {
+	id=$1
+  if [ -z "$id" ]; then
+    echo ""
+  else
+    xprop -id "$id" | sed -n \
+      -e '/WM_CLASS/s/\( "\)/\n/g; s/[^\n]*\n\([^"]*\)[^\n]*/\1\n/g' \
+      -e '/WM_COMMAND/s/[^"]*/\n\n/1; s/\n"//1; s/\n\([^"]*\)".*/\n\1/; /\n/p' | sed '/^$/d' | head -n1
+  fi
+}
+
+get_pid() {
+	xprop _NET_WM_PID -id "$1" | awk '/[0-9]+/ {print $3}'
+}
+
+get_ppid() {
+	ps -o ppid= -p $1
+}
+
+check_swallowing_process() {
+	pid=$(get_pid $1)
+	[ -z $pid ] && return 0
+	gppid=$(get_ppid $(get_ppid $pid))
+	grep -i "^$(ps -o cmd= -p $gppid | awk '{print $1}' | sed 's_^.*/__')$" ~/.config/bspwm/terminals && return 0
+	[ "$(get_ppid "$(get_ppid "$(get_pid "$1")")")" = "$(get_pid "$2")" ] && return 0 || return 1
+}
+
+swallow() {
+	addedtodesktop=$2
+	lasttermdesktop=$(bspc query -D -n last)
+
+	swallowerid=$1
+	swallowingid=$(bspc query -N -n last)
+	if [ "$addedtodesktop" = "$lasttermdesktop" ] && check_swallowing_process "$swallowerid" "$swallowingid"; then
+		grep -q "^$(get_class "$swallowerid")$" ~/.config/bspwm/{noswallow, terminals} && return
+		grep -i "^$(get_class "$swallowingid")$" ~/.config/bspwm/terminals || return
+		echo "$swallowerid $swallowingid" >> /tmp/swallowids
+		bspc node "$swallowingid" --flag hidden=on
+	fi
+}
+
+spit() {
+	spitterid=$1
+	spitterdesktop=$2
+	grep "^$spitterid" /tmp/swallowids || return
+	spittingid=$(grep "^$spitterid" /tmp/swallowids | head -n1 | awk '{print $2}')
+
+	bspc node "$spittingid" --flag hidden=off
+
+	termdesktop=$(bspc query -D -n "$spittingid")
+	[ "$termdesktop" = "$spitterdesktop" ] || bspc node "$spittingid" -d "$spitterdesktop"
+
+	bspc node "$spittingid" -f
+	sed -i "/^$spitterid/d" /tmp/swallowids
+}
+
+bspc subscribe node_add node_remove | while read -r event
+do
+	case $(echo "$event" | awk '{ print $1 }') in
+		node_add)
+            		swallow $(echo "$event" | awk '{print $5 " " $3}')
+			;;
+		node_remove)
+			spit $(echo "$event" | awk '{print $4 " " $3}')
+			;;
+	esac
+done

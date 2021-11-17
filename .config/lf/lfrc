@@ -30,7 +30,7 @@ cmd unarchive ${{
 }}
 
 # Execute exe
-cmd unexecute ${{
+cmd execute ${{
 	wine "$f"
 }}
 
@@ -43,27 +43,29 @@ map "'"
 map '"'
 map d
 
-map c $vscodium "$f"
+#map c $vscodium "$f"
 
 map au unarchive
-map ae unexecute
+map ae execute
 
 # Basic Functions
 map . set hidden!
 map DD delete
-map v toggle
 map p paste
 map x cut
 map y copy
 map <enter> open
+map R reload
+map mf mkfile
 map md mkdir
 map bg setwallpaper
-map r rename
-map H top
-map L bottom
-map R reload
 map C clear
-map U unselect
 
 # Movement
-map gD cd ~/Downloads
+map gd cd ~/documents
+map gD cd ~/downloads
+map gp cd ~/pictures
+map gc cd ~/.config
+map gr cd ~/repos
+map gv cd ~/videos/recordings
+map gs cd ~/.local/bin

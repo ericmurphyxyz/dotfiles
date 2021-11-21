@@ -1,18 +1,18 @@
 #! /bin/sh
 
-sxhkd &
+pgrep -x sxhkd >/dev/null || sxhkd &
 bspc monitor eDP1 -d 1 2 3 4 5 6 7 8 &
 xidlehook --not-when-audio --not-when-fullscreen --timer 1800 'systemctl suspend' '' &
 pgrep bspswallow || bspswallow &
 startup
 
-bspc config border_width 0
-bspc config window_gap 12
-bspc config top_padding	30
-bspc config left_padding 0
-bspc config right_padding	0
-bspc config bottom_padding 0
+bspc config border_width 2
+bspc config window_gap 20
+bspc config normal_border_color "#282c34"
+bspc config focused_border_color "#353b45"
 
 bspc config split_ratio 0.52
 bspc config borderless_monocle true
 bspc config gapless_monocle true
+
+bspc rule -a Zathura state=tiled

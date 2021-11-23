@@ -20,6 +20,8 @@ export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
 export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
 export N_PREFIX="$HOME/.local/bin/n"
 export ZDOTDIR="$HOME/.config/zsh"
+export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
+export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
 
 # lf icons
 export LF_ICONS="\

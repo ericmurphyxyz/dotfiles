@@ -37,5 +37,4 @@ alias glg="git log --graph --abbrev-commit --decorate --format=format:'%C(bold g
 alias gt="git ls-tree -r master --name-only"
 alias grm="git remote"
 alias gb="git branch"
-alias gm="git merge"
 alias gf="git fetch"

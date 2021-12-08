@@ -14,9 +14,9 @@ endif
 " plugin list
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME}/nvim/plugged"'))
 
-Plug 'ghifarit53/tokyonight-vim'
+Plug 'tiagovla/tokyodark.nvim'
 Plug 'sheerun/vim-polyglot'
-Plug 'itchyny/lightline.vim'
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf.vim'
 Plug 'mattn/emmet-vim'
@@ -39,9 +39,7 @@ endif
 
 " Aesthetics
 set background=dark
-let g:tokyonight_enable_italic = 1
-let g:tokyonight_disable_italic_comment = 1
-colorscheme tokyonight
+colorscheme tokyodark
 let g:lightline = {'colorscheme' : 'tokyonight'}
 set laststatus=2
 
@@ -59,7 +57,6 @@ nnoremap <C-f> :BLines<CR>
 nnoremap <C-g> :GFiles<CR>
 
 let g:Hexokinase_highlighters = ['virtual']
-let g:Hexokinase_ftEnabled = ['css', 'html', 'javascript']
 
 " emmet shortcuts
 let g:user_emmet_mode='n'

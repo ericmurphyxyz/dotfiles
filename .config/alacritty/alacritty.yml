@@ -1,7 +1,7 @@
 window:
   padding:
-    x: 10
-    y: 10
+    x: 5
+    y: 5
   class:
     instance: Alacritty
     general: Alacritty
@@ -48,7 +48,11 @@ colors:
     cyan: "#0db9d7"
     white: "#acb0d0"
 
-background_opacity: 1.0
+background_opacity: 1
+
+cursor:
+  style:
+    shape: block
 
 selection:
   save_to_clipboard: false
@@ -57,3 +61,7 @@ live_config_reload: true
 
 shell:
   program: /usr/bin/zsh
+
+key_bindings:
+  - { key: Return, mods: Super|Shift, action: SpawnNewInstance }
+

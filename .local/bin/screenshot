@@ -1,10 +1,10 @@
 #! /bin/sh
-output='%Y-%m-%d_%H:%M:%S_$wx$h.png'
-exec='mv $f ~/pictures/screenshots'
+output='/home/eric/pictures/screenshots/%Y-%m-%d-%T-screenshot.png'
 
 case "$1" in
-	"select") scrot "$output" --select --line mode=edge --exec "$exec" || exit;;
-	*) scrot "$output" --exec "$exec" || exit;;
+	"select") scrot "$output" --select --line mode=edge ;;
+	"window") scrot "$output" --focused --border ;;
+	*) scrot "$output" ;;
 esac
 
 notify-send "Screenshot taken."

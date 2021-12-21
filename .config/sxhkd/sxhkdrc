@@ -9,12 +9,15 @@
 shift + @Print
 	screenshot select
 
+control + @Print
+	screenshot window
+
 # brightness keys
 XF86MonBrightnessUp
-	xbacklight -inc 10
+	changebrightness up
 
 XF86MonBrightnessDown
-	xbacklight -dec 10
+	changebrightness down
 
 # media keys
 XF86Audio{Prev,Next}
@@ -39,7 +42,7 @@ super + x
 
 # program launcher
 super + @space
-	dmenu_run
+	rofi -terminal alacritty -show drun
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -69,6 +72,9 @@ super + f
 super + p
 	bspc node focused.floating -t tiled
 
+super + t
+	bspc node focused.tiled -t floating
+
 #
 # focus/swap
 #
@@ -76,10 +82,6 @@ super + p
 # focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
-
-# focus the node for the given path jump
-super + {p,b,comma,period}
-	bspc node -f @{parent,brother,first,second}
 
 # focus the next/previous desktop in the current monitor
 super + bracket{left,right}
@@ -109,6 +111,21 @@ super + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
+# notifications
+ctrl + space
+  dunstctl close
+
+ctrl + shift + space
+  dunstctl close-all
+
+ctrl + shift + period
+  dunstctl context
+
+ctrl + grave
+  dunstctl history-pop
+
+ctrl + alt + x
+	xkill
 
 super + Return
 	$TERMINAL

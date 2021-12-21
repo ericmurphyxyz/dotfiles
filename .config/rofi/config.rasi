@@ -1,24 +1,20 @@
 configuration {
   display-drun: "Applications:";
   display-window: "Windows:";
-  drun-display-format: "{icon} {name}";
+  drun-display-format: "{name}";
   font: "JetBrainsMono Nerd Font Medium 10";
   modi: "window,run,drun";
-  show-icons: true;
-  icon-theme: "Papirus";
 }
 
 @theme "/dev/null"
 
 * {
   bg: #11121D;
-  bg-alt: #A0A8CD;
+  bg-alt: #444b6a;
 
   fg: #FFFFFF;
-  fg-alt: #424242;
+  fg-alt: #787c99;
 
-  window-border-color: #4A5057;
-  
   background-color: @bg;
   
   border: 0;
@@ -27,8 +23,12 @@ configuration {
   spacing: 0;
 }
 
+window {
+  width: 30%;
+}
+
 element {
-  padding: 12;
+  padding: 8 0;
   text-color: @fg-alt;
 }
 
@@ -39,6 +39,11 @@ element selected {
 element-text {
   background-color: inherit;
   text-color: inherit;
+  vertical-align: 0.5;
+}
+
+element-icon {
+  size: 30;
 }
 
 entry {
@@ -48,10 +53,11 @@ entry {
 }
 
 inputbar {
-  children: [entry];
+  children: [prompt, entry];
 }
 
 listview {
+  padding: 8 12;
   background-color: @bg;
   columns: 1;
   lines: 8;
@@ -69,6 +75,4 @@ prompt {
   text-color: @fg;
 }
 
-window {
-  transparency: "real";
-}
+/* vim: ft=sass

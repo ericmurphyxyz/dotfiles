@@ -3,8 +3,8 @@ output='%Y-%m-%d_%H:%M:%S_$wx$h.png'
 exec='mv $f ~/pictures/screenshots'
 
 case "$1" in
-	"select") scrot "$output" -zse "$exec" || exit;;
-	*) scrot "$output" -ze "$exec" || exit;;
+	"select") scrot "$output" --select --line mode=edge --exec "$exec" || exit;;
+	*) scrot "$output" --exec "$exec" || exit;;
 esac
 
 notify-send "Screenshot taken."

@@ -40,6 +40,9 @@ XF86AudioMute
 super + x
 	systemctl suspend
 
+super + shift + x
+	powermenu
+
 # program launcher
 super + @space
 	rofi -terminal alacritty -show drun

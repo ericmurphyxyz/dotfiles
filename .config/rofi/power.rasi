@@ -1,0 +1,7 @@
+inputbar {
+  children: [entry];
+}
+
+listview {
+	lines: 3;
+}

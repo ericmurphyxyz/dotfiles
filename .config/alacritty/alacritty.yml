@@ -5,9 +5,13 @@ window:
   class:
     instance: Alacritty
     general: Alacritty
+  opacity: 1
 
 scrolling:
   history: 10000
+  multiplier: 3
+
+
 font:
   normal:
     family: JetBrains Mono Nerd Font
@@ -21,8 +25,7 @@ font:
   bold_italic:
     family: JetBrains Mono Nerd Font
     style: BoldItalic
-  size: 7.0
-
+  size: 7
 draw_bold_text_with_bright_colors: true
 
 colors:
@@ -48,16 +51,8 @@ colors:
     cyan: "#0db9d7"
     white: "#acb0d0"
 
-background_opacity: 1
-
-cursor:
-  style:
-    shape: block
-
 selection:
   save_to_clipboard: false
-
-live_config_reload: true
 
 shell:
   program: /usr/bin/zsh

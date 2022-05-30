@@ -34,6 +34,25 @@ cmd execute ${{
 	wine "$f"
 }}
 
+# Trash bindings
+cmd trash ${{
+  files=$(printf "$fx" | tr '\n' ';')
+  while [ "$files" ]; do
+    file=${files%%;*}
+
+    trash-put "$(basename "$file")"
+    if [ "$files" = "$file" ]; then
+      files=''
+    else
+      files="${files#*;}"
+    fi
+  done
+}}
+
+cmd restore_trash ${{
+  trash-restore
+}}
+
 # Bindings
 # Remove some defaults
 map m
@@ -43,7 +62,7 @@ map "'"
 map '"'
 map d
 
-#map c $vscodium "$f"
+map c $vscodium "$f"
 
 map au unarchive
 map ae execute
@@ -60,6 +79,9 @@ map mf mkfile
 map md mkdir
 map bg setwallpaper
 map C clear
+
+map dd trash
+map dr restore_trash
 
 # Movement
 map gd cd ~/documents

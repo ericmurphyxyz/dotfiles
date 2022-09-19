@@ -2,7 +2,7 @@
     monitor = 0
     follow = mouse
     width = 350
-    offset = 20x50
+    offset = 0x30
     progress_bar = true
     progress_bar_height = 10
     progress_bar_frame_width = 1
@@ -11,18 +11,18 @@
     indicate_hidden = yes
     shrink = no
     separator_height = 2
-    padding = 8
-    horizontal_padding = 8
-    text_icon_padding = 0
+    padding = 10
+    horizontal_padding = 15
+    text_icon_padding = 15
     frame_width = 2
-    frame_color = "#4A5057"
+    frame_color = "#787c99"
     separator_color = frame
     sort = yes
     idle_threshold = 120
     font = JetBrains Mono Nerd Font Medium 10
     line_height = 0
     markup = full
-    format = "<b>%s</b>\n%b"
+    format = "<b><span foreground='#A0A8CD'>%s</span></b>\n%b"
     alignment = left
     vertical_alignment = center
     show_age_threshold = 60
@@ -52,16 +52,18 @@
     per_monitor_dpi = false
 
 [urgency_low]
-    background = "#11121D"
-    foreground = "#A0A8CD"
-    timeout = 10
+    background = "#11121DCC"
+    foreground = "#787c99"
+    timeout = 5
 
 [urgency_normal]
-    background = "#11121D"
-    foreground = "#A0A8CD"
+    background = "#11121DCC"
+    foreground = "#787c99"
     timeout = 10
 
 [urgency_critical]
-    background = "#11121D"
+    background = "#11121DCC"
     foreground = "#EE6D85"
+    frame_color = "#EE6D85"
     timeout = 30
+    format = "<b>%s</b>\n%b"

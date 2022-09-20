@@ -54,7 +54,7 @@
 [urgency_low]
     background = "#11121DCC"
     foreground = "#787c99"
-    timeout = 5
+    timeout = 10
 
 [urgency_normal]
     background = "#11121DCC"
@@ -65,5 +65,5 @@
     background = "#11121DCC"
     foreground = "#EE6D85"
     frame_color = "#EE6D85"
-    timeout = 30
+    timeout = -1
     format = "<b>%s</b>\n%b"

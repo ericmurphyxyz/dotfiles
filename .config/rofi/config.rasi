@@ -3,7 +3,7 @@ configuration {
   display-window: "Windows:";
   drun-display-format: "{name}";
   font: "JetBrainsMono Nerd Font Medium 10";
-  modi: "window,run,drun";
+  modi: "window,run,drun,emoji,calc";
 }
 
 @theme "/dev/null"
@@ -37,13 +37,13 @@ element selected {
 }
 
 element-text {
-  background-color: inherit;
   text-color: inherit;
   vertical-align: 0.5;
 }
 
 element-icon {
-  size: 30;
+  size: 14;
+  padding: 0 10 0 0;
 }
 
 entry {

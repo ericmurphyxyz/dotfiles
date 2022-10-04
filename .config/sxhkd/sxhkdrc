@@ -2,6 +2,12 @@
 # wm independent hotkeys
 #
 
+super + shift + e
+	rofi -show emoji
+
+super + shift + c
+	rofi -show calc
+
 # printscreen
 @Print
 	screenshot
@@ -20,8 +26,11 @@ XF86MonBrightnessDown
 	changebrightness down
 
 # media keys
-XF86Audio{Prev,Next}
-	playerctl {previous,next}
+XF86AudioPrev
+	playerctl previous
+
+XF86AudioNext
+	playerctl next
 
 XF86AudioPlay
 	playerctl play-pause
@@ -38,18 +47,17 @@ XF86AudioMute
 
 # lockscreen
 super + x
-	systemctl suspend
+	slock
 
 super + shift + x
 	powermenu
 
 # program launcher
 super + @space
-	rofi -terminal alacritty -show drun
+	rofi -terminal alacritty -show drun -icon-theme "Papirus" -show-icons
 
 # make sxhkd reload its configuration files:
 super + Escape
-	~/.config/polybar/launch.sh
 	pkill -USR1 -x sxhkd
 
 #
@@ -70,13 +78,16 @@ super + {_,shift + }q
 #
 
 super + f
-	bspc node focused.tiled -t fullscreen || bspc node focused.fullscreen -t tiled
-
-super + p
-	bspc node focused.floating -t tiled
+	bspc node focused.tiled -t fullscreen
 
 super + t
+	bspc node focused.fullscreen -t tiled
+
+super + shift + f
 	bspc node focused.tiled -t floating
+
+super + shift + t
+	bspc node focused.floating -t tiled
 
 #
 # focus/swap
@@ -133,9 +144,18 @@ ctrl + alt + x
 super + Return
 	$TERMINAL
 
+super + shift + v
+	copyq paste
+
 # browser
-super + {w, g, o, v, s}
-	{$BROWSER, gimp, obs, olive-editor, spotify}
+super + w
+	chromium --force-dark-mode --enable-features=WebUIDarkMode --disable-top-sites
+
+super + {g, o, v, s}
+	{gimp, obs, olive-editor, spotify}
 
 super + {e, m, c, n}
-	$TERMINAL -e {lf-ueberzug, neomutt, calcurse, ncmpcpp}
+	$TERMINAL -e {lf-ueberzug, neomutt, calcurse, nvim documents/vimwiki/index.md}
+
+Menu
+	xte 'mouseclick 3'

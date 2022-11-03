@@ -18,6 +18,10 @@ cmd mkfile ${{
 
 cmd setwallpaper %cp "$f" ~/.config/wall.jpg && xwallpaper --zoom "$f"
 
+cmd trash ${{
+  trash-put "$f"
+}}
+
 # Archive bindings
 cmd unarchive ${{
   case "$f" in
@@ -27,11 +31,6 @@ cmd unarchive ${{
       *.tar) tar -xvf "$f" ;;
       *) echo "Unsupported format" ;;
   esac
-}}
-
-# Execute exe
-cmd execute ${{
-	wine "$f"
 }}
 
 # Trash bindings
@@ -65,11 +64,10 @@ map d
 map c $vscodium "$f"
 
 map au unarchive
-map ae execute
 
 # Basic Functions
 map . set hidden!
-map DD delete
+map DD trash
 map p paste
 map x cut
 map y copy
@@ -91,3 +89,4 @@ map gc cd ~/.config
 map gr cd ~/repos
 map gv cd ~/videos/recordings
 map gs cd ~/.local/bin
+map gt cd ~/.local/share/Trash/files

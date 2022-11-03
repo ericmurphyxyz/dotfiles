@@ -1,15 +1,15 @@
 # default apps
 export EDITOR="nvim"
+#export SUDO_EDITOR="nano"
 export TERMINAL="alacritty"
-export BROWSER="brave"
+export BROWSER="firefox"
 
 # path
-export PATH=~/.local/bin/:~/.local/bin/npm-global/bin:$PATH
+export PATH=~/.local/bin/:~/.local/bin/rofi:~/.local/bin/npm-global/bin:$PATH
 
 # cleaning up home folder
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
-export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
 export NOTMUCH_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/notmuch-config"
 export LESSHISTFILE="-"
 export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc"
@@ -22,6 +22,8 @@ export N_PREFIX="$HOME/.local/bin/n"
 export ZDOTDIR="$HOME/.config/zsh"
 export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
 export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
+
+export WINIT_X11_SCALE_FACTOR=1.75 alacritty
 
 # lf icons
 export LF_ICONS="\

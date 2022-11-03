@@ -1,11 +1,10 @@
 # default apps
 export EDITOR="nvim"
-#export SUDO_EDITOR="nano"
 export TERMINAL="alacritty"
 export BROWSER="firefox"
 
-# path
-export PATH=~/.local/bin/:~/.local/bin/rofi:~/.local/bin/npm-global/bin:$PATH
+# Adds ~/.local/bin and subfolders to $PATH
+export PATH="$PATH:${$(find ~/.local/bin -maxdepth 1 -type d -printf %p:)%%:}"
 
 # cleaning up home folder
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -22,6 +21,8 @@ export N_PREFIX="$HOME/.local/bin/n"
 export ZDOTDIR="$HOME/.config/zsh"
 export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
 export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
+
+export MANPAGER="less -R --use-color -Dd+r -Du+b"
 
 export WINIT_X11_SCALE_FACTOR=1.75 alacritty
 

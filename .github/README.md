@@ -1,6 +1,6 @@
 <h1 align="center">My Arch Linux Setup</h1>
 
-<img src="/screenshots/desktop.png" width="100%" />
+<img src="/.github/screenshots/desktop.jpg" width="100%" />
 
 This is where I keep all of the various dotfiles for different programs I use. If you'd like an in-depth list of all the software and hardware I use on a daily basis, see [the Uses page on my website](https://ericmurphy.xyz/uses).
 

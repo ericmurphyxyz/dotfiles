@@ -1,8 +1,11 @@
-systemctl --user import-environment DISPLAY
+#!/bin/sh
 
-setxkbmap -option "caps:swapescape"
+systemctl --user import-environment DISPLAY
 
 sxhkd &
 picom --experimental-backends &
 redshift &
+mpd &
+mpDris2 &
+xmousepasteblock &
 exec bspwm

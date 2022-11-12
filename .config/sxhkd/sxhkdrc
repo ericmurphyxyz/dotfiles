@@ -5,6 +5,9 @@
 super + shift + e
 	rofi -show emoji
 
+super + shift + n
+	rofi-nerdfonts
+
 super + shift + c
 	rofi -show calc
 
@@ -47,7 +50,7 @@ XF86AudioMute
 
 # lockscreen
 super + x
-	slock
+	betterlockscreen -l
 
 super + shift + x
 	powermenu
@@ -56,8 +59,12 @@ super + shift + x
 super + @space
 	rofi -terminal alacritty -show drun -icon-theme "Papirus" -show-icons
 
-# make sxhkd reload its configuration files:
+# Reload polybar
 super + Escape
+	$HOME/.config/polybar/launch.sh
+
+# Reload sxhkd
+super + shift + Escape
 	pkill -USR1 -x sxhkd
 
 #
@@ -144,12 +151,9 @@ ctrl + alt + x
 super + Return
 	$TERMINAL
 
-super + shift + v
-	copyq paste
-
 # browser
 super + w
-	chromium --force-dark-mode --enable-features=WebUIDarkMode --disable-top-sites
+	$BROWSER
 
 super + {g, o, v, s}
 	{gimp, obs, olive-editor, spotify}

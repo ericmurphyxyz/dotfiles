@@ -8,13 +8,20 @@ alias rm="rm -vI"
 alias	bc="bc -ql"
 alias	mkd="mkdir -pv"
 alias ls="ls -hN --color=auto --group-directories-first"
+alias locate="plocate"
+alias tp="trash-put"
+alias tpr="trash-restore"
 
 # application aliases
 alias v="$EDITOR"
+alias vim="$EDITOR"
 alias m="mpv"
 alias p="sudo pacman"
+alias pa="paru"
 alias nb="newsboat"
 alias z="zathura"
+alias code="vscodium"
+alias lf="lfcd"
 
 # git aliases
 alias g="git"
@@ -38,3 +45,10 @@ alias gt="git ls-tree -r master --name-only"
 alias grm="git remote"
 alias gb="git branch"
 alias gf="git fetch"
+
+# aliases for dotfiles git bare repo
+alias dotfiles='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias dfa='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME add'
+alias dfc='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME commit'
+alias dfp='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME push'
+

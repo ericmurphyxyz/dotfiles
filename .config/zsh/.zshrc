@@ -36,18 +36,12 @@ compinit
 bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
 
-# alias for git bare repo for dotfiles
-alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
-alias vim='nvim'
-alias code='vscodium'
-alias lf='lfcd'
-
 # theme/plugins
 source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.config/zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
-source ~/.config/zsh/zsh-auto-notify/auto-notify.plugin.zsh
-source ~/.config/zsh/you-should-use/you-should-use.plugin.zsh
+#source ~/.config/zsh/zsh-auto-notify/auto-notify.plugin.zsh
+#source ~/.config/zsh/you-should-use/you-should-use.plugin.zsh
 
 source ~/.config/lf/lfcd.sh
 
@@ -58,7 +52,7 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 # auto notify options
-AUTO_NOTIFY_IGNORE+=("lf" "hugo serve")
+AUTO_NOTIFY_IGNORE+=("lf" "hugo serve" "rofi")
 
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 

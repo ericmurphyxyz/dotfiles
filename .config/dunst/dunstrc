@@ -2,7 +2,7 @@
     monitor = 0
     follow = mouse
     width = 350
-    offset = 0x30
+    offset = 10x40
     progress_bar = true
     progress_bar_height = 10
     progress_bar_frame_width = 1
@@ -11,7 +11,7 @@
     indicate_hidden = yes
     shrink = no
     separator_height = 2
-    padding = 10
+    padding = 15
     horizontal_padding = 15
     text_icon_padding = 15
     frame_width = 2
@@ -22,7 +22,7 @@
     font = JetBrains Mono Nerd Font Medium 10
     line_height = 0
     markup = full
-    format = "<b><span foreground='#A0A8CD'>%s</span></b>\n%b"
+    format = "<span weight='bold'>%s</span>\n%b"
     alignment = left
     vertical_alignment = center
     show_age_threshold = 60
@@ -34,8 +34,8 @@
     show_indicators = yes
     icon_position = left
     min_icon_size = 0
-    max_icon_size = 32
-    icon_path = /home/eric/.local/share/icons/fontawesome
+    max_icon_size = 48
+    icon_path = /home/eric/.local/share/icons/dunst
     sticky_history = yes
     history_length = 20
     always_run_script = true

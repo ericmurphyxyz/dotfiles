@@ -14,6 +14,7 @@ alias tpr="trash-restore"
 
 # application aliases
 alias v="$EDITOR"
+alias vw="$EDITOR ~/documents/vimwiki/index.md"
 alias vim="$EDITOR"
 alias m="mpv"
 alias p="sudo pacman"

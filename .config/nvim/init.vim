@@ -2,6 +2,10 @@ set formatoptions-=cro
 set tabstop=2
 set softtabstop=0 noexpandtab
 set shiftwidth=2
+set mouse=nv
+set ttyfast
+
+let mapleader = ","
 
 " plugins
 " download and install vim-plug if not installed
@@ -77,5 +81,26 @@ vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 nnoremap <A-C-j> yyp
 nnoremap <A-C-k> yyP
+nnoremap <leader>p "+p
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+
+function! s:goyo_enter()
+  set linebreak
+  set spell spelllang=en_us
+  HexokinaseTurnOff
+endfunction
+
+function! s:goyo_leave()
+  set nolinebreak
+  set nospell
+  HexokinaseTurnOn
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+"let g:goyo_height='80%'
+"let g:goyo_width='80%'
 
 let g:vimwiki_list = [{'path': '~/documents/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]

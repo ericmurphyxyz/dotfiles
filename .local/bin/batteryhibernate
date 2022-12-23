@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Script to hibernate when battery level is too low (20% in my case) to avoid data loss
+# Set to run as a cron job every 3 minutes
+# Script adapted from the Arch wiki: https://wiki.archlinux.org/title/laptop
+
+acpi -b | grep "Battery 0" | awk -F'[,:%]' '{print $2, $3}' | {
+	read -r status capacity
+
+	if [ "$status" = Discharging -a "$capacity" -lt 20 ]; then
+		logger "Critical battery threshold"
+		systemctl hibernate
+	fi
+}

@@ -158,8 +158,8 @@ super + w
 super + {g, o, v, s}
 	{gimp, obs, olive-editor, spotify}
 
-super + {e, m, c, n}
-	$TERMINAL -e {lf-ueberzug, neomutt, calcurse, nvim documents/vimwiki/index.md}
+super + {b, e, m, n}
+	$TERMINAL -e {newsboat, lf-ueberzug, neomutt, nvim documents/vimwiki/index.md}
 
 Menu
 	xte 'mouseclick 3'

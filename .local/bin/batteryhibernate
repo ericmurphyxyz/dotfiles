@@ -3,6 +3,8 @@
 # Script to hibernate when battery level is too low (20% in my case) to avoid data loss
 # Set to run as a cron job every 3 minutes
 # Script adapted from the Arch wiki: https://wiki.archlinux.org/title/laptop
+# In order to execute as a cron job, a rules file must be created:
+# https://unix.stackexchange.com/questions/563498/systemctl-hibernate-not-executed-on-crontab-script/563863#563863
 
 acpi -b | grep "Battery 0" | awk -F'[,:%]' '{print $2, $3}' | {
 	read -r status capacity

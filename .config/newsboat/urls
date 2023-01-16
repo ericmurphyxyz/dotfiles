@@ -1,0 +1,29 @@
+# "query:Unread Articles:unread = \"yes\""
+"query:Blog Posts:tags # \"blog\""
+"query:Videos:tags # \"video\""
+
+# Blogs
+https://lukesmith.xyz/rss.xml blog
+https://tynan.com/feed/ blog
+https://opensourcemusings.com/feed/ blog
+
+# YouTube
+https://www.youtube.com/feeds/videos.xml?channel_id=UCG-3rEW4IrDNa7-9iGByc2A video fitness # Natural Hypertrophy
+https://www.youtube.com/feeds/videos.xml?channel_id=UCRLOLGZl3-QTaJfLmAKgoAw video fitness # Alan Thrall
+https://www.youtube.com/feeds/videos.xml?channel_id=UCmdlnVFzmf7Zhqm_QE-UlJw video fitness # Alex Leonidas
+https://www.youtube.com/feeds/videos.xml?channel_id=UCfQgsKhHjSyRLOp9mnffqVg video fitness # Renaissance Periodization
+https://www.youtube.com/feeds/videos.xml?channel_id=UCbYoTv5DbJmzKwxx5dmnu6g video fitness # Bald Omni-Man
+https://www.youtube.com/feeds/videos.xml?channel_id=UCclRFAVSUGe8cu9JkvY6nNA video fitness # Alexander Bromley
+https://www.youtube.com/feeds/videos.xml?channel_id=UCf33v9eZOy59r7HM44ni_4Q video fitness # Basement Bodybuilding
+https://www.youtube.com/feeds/videos.xml?channel_id=UClWbQQhAM2VH-drp2mBwLlw video fitness # Peter Khatcherian
+https://www.youtube.com/feeds/videos.xml?channel_id=UCzGVKv513I6Zb0u3mLsL_7w video fitness # SSD Abel
+https://www.youtube.com/feeds/videos.xml?channel_id=UCObA5o3mcc1felIMAv6cukw video fitness # Geoffrey Verity Schofield
+https://www.youtube.com/feeds/videos.xml?channel_id=UCJqUYFSwCsDZtWSIDJV8j4g video fitness # Stand Strength
+
+https://www.youtube.com/feeds/videos.xml?channel_id=UC5KDiSAFxrDWhmysBcNqtMA video tech # Eric Murphy
+https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA video tech # Luke Smith
+https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA video tech # Mental Outlaw
+https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA video tech # Brodie Robertson
+https://www.youtube.com/feeds/videos.xml?channel_id=UC5U7mHlhP6s6478wd7ZvnhA video tech # Trafotin
+https://www.youtube.com/feeds/videos.xml?channel_id=UCjr2bPAyPV7t35MvcgT3W8Q video tech # The Hated One
+https://www.youtube.com/feeds/videos.xml?channel_id=UC5UAwBUum7CPN5buc-_N1Fw video tech # The Linux Experiment

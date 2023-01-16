@@ -1,0 +1,47 @@
+# Instead of updating from newsboat, I run the update process as an hourly cron job:
+# 0 * * * * /usr/bin/newsboat -x reload
+
+unbind-key j
+unbind-key k
+unbind-key h
+unbind-key H
+unbind-key L
+unbind-key c
+unbind-key ,
+browser "$BROWSER %u"
+
+# Feed settings
+prepopulate-query-feeds yes
+
+macro w set browser "setsid -f mpv --really-quiet --no-terminal" ; open-in-browser ; set browser "$BROWSER %u"
+
+# bind keys
+bind-key SPACE macro-prefix
+bind-key h quit
+bind-key BACKSPACE quit
+bind-key j down
+bind-key k up
+bind-key l open
+bind-key H prev-feed
+bind-key L next-feed
+bind-key c toggle-show-read-feeds
+
+color background default default
+color listnormal default default
+color listnormal_unread default default
+color listfocus color16 cyan
+color listfocus_unread color16 cyan
+color info default black
+color article default default
+
+highlight article "(^Feed:.*|^Title:.*|^Author:.*)" cyan default bold
+highlight article "(^Link:.*|^Date:.*)" default default
+highlight article "https?://[^ ]+" green default
+
+highlight article "^(Title):.*$" blue default
+highlight article "\\[[0-9][0-9]*\\]" magenta default bold
+highlight article "\\[image\\ [0-9]+\\]" green default bold
+highlight article "\\[embedded flash: [0-9][0-9]*\\]" green default bold
+highlight article ":.*\\(link\\)$" cyan default
+highlight article ":.*\\(image\\)$" blue default
+highlight article ":.*\\(embedded flash\\)$" magenta default

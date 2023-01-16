@@ -15,7 +15,7 @@ prepopulate-query-feeds yes
 
 macro w set browser "setsid -f mpv --really-quiet --no-terminal" ; open-in-browser ; set browser "$BROWSER %u"
 
-# bind keys
+# Bindings
 bind-key SPACE macro-prefix
 bind-key h quit
 bind-key BACKSPACE quit
@@ -24,15 +24,21 @@ bind-key k up
 bind-key l open
 bind-key H prev-feed
 bind-key L next-feed
+bind-key G end
+bind-key g home
+bind-key d pagedown
+bind-key u pageup
+bind-key a toggle-article-read
 bind-key c toggle-show-read-feeds
 
+# Colors
 color background default default
 color listnormal default default
-color listnormal_unread default default
-color listfocus color16 cyan
-color listfocus_unread color16 cyan
-color info default black
+color listfocus_unread black yellow standout bold
+color listfocus black yellow standout bold
+color listnormal_unread blue default
 color article default default
+color info red black bold
 
 highlight article "(^Feed:.*|^Title:.*|^Author:.*)" cyan default bold
 highlight article "(^Link:.*|^Date:.*)" default default

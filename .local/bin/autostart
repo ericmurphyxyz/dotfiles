@@ -15,9 +15,6 @@ dunst &
 # blue light filter
 redshift &
 
-# swallow terminal windows
-bspswallow &
-
 # set the wallpaper
 xwallpaper --zoom $HOME/.config/wall.jpg &
 

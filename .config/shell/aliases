@@ -1,26 +1,29 @@
 #!/bin/sh
 
 # settings for common commands
-alias \
 alias cp="cp -iv"
 alias mv="mv -iv"
 alias rm="rm -vI"
-alias	bc="bc -ql"
-alias	mkd="mkdir -pv"
-alias ls="ls -hN --color=auto --group-directories-first"
+alias bc="bc -ql"
+alias mkd="mkdir -pv"
+alias ls="exa --icons --group-directories-first"
 alias locate="plocate"
 alias tp="trash-put"
 alias tpr="trash-restore"
+
+# windows to swallow
+alias mpv="swallow mpv"
+alias zathura="swallow zathura"
+alias feh="swallow feh"
 
 # application aliases
 alias v="$EDITOR"
 alias vw="$EDITOR ~/documents/vimwiki/index.md"
 alias vim="$EDITOR"
-alias m="mpv"
 alias p="sudo pacman"
 alias pa="paru"
 alias nb="newsboat"
-alias z="zathura"
+alias za="zathura"
 alias code="vscodium"
 alias lf="lfcd"
 

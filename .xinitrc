@@ -1,11 +1,5 @@
 #!/bin/sh
+# Startup script but everything important is in bspwmrc
 
 systemctl --user import-environment DISPLAY
-
-sxhkd &
-picom --experimental-backends &
-redshift &
-mpd &
-mpDris2 &
-xmousepasteblock &
 exec bspwm

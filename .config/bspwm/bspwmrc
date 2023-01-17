@@ -1,13 +1,10 @@
 #! /bin/sh
 
-pgrep -x sxhkd >/dev/null || sxhkd &
+# Start applications from ~/.local/bin/autostart
+autostart &
+
+# bspwm settings
 bspc monitor eDP1 -d 1 2 3 4 5 6 7 8 &
-xidlehook --not-when-audio --not-when-fullscreen --timer 1800 'systemctl suspend-then-hibernate' '' &
-pgrep bspswallow || bspswallow &
-xwallpaper --zoom ~/.config/wall.jpg &
-$HOME/.config/polybar/launch.sh
-
-
 bspc config window_gap 10
 bspc config border_width 2
 bspc config normal_border_color "#32344a"

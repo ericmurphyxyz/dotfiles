@@ -13,7 +13,7 @@ browser "$BROWSER %u"
 # Feed settings
 prepopulate-query-feeds yes
 
-macro w set browser "setsid -f mpv --really-quiet --no-terminal" ; open-in-browser ; set browser "$BROWSER %u"
+macro v set browser "setsid -f mpv --really-quiet --no-terminal" ; open-in-browser ; set browser "$BROWSER %u"
 
 # Bindings
 bind-key SPACE macro-prefix

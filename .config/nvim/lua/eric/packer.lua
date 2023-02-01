@@ -41,6 +41,25 @@ return require('packer').startup(function(use)
     }
     use 'goolord/alpha-nvim' -- Startup screen
 
+    use {
+        "folke/zen-mode.nvim",
+        config = function()
+            require("zen-mode").setup {
+                window = {
+                    options = {
+                        -- signcolumn = "no", -- disable signcolumn
+                        number = true, -- disable number column
+                        -- cursorline = false, -- disable cursorline
+                        -- cursorcolumn = false, -- disable cursor column
+                        -- foldcolumn = "0", -- disable fold column
+                        -- list = false, -- disable whitespace characters
+                    },
+                }
+            }
+        end
+    }
+
+
     -- lsp
     use {
         'VonHeikemen/lsp-zero.nvim',

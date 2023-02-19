@@ -7,7 +7,7 @@
 sxhkd &
 
 # window compositor
-picom --experimental-backends &
+picom &
 
 # notification daemon
 dunst &

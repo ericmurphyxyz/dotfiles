@@ -18,10 +18,6 @@ cmd mkfile ${{
 
 cmd setwallpaper %cp "$f" ~/.config/wall.jpg && xwallpaper --zoom "$f"
 
-cmd trash ${{
-  trash-put "$f"
-}}
-
 # Archive bindings
 cmd unarchive ${{
   case "$f" in
@@ -64,10 +60,12 @@ map d
 map c $vscodium "$f"
 
 map au unarchive
+map ae $wine "$f"
 
 # Basic Functions
 map . set hidden!
-map DD trash
+map dd trash
+map dr restore_trash
 map p paste
 map x cut
 map y copy
@@ -78,15 +76,12 @@ map md mkdir
 map bg setwallpaper
 map C clear
 
-map dd trash
-map dr restore_trash
-
 # Movement
-map gd cd ~/documents
-map gD cd ~/downloads
+map gD cd ~/documents
+map gd cd ~/downloads
 map gp cd ~/pictures
 map gc cd ~/.config
 map gr cd ~/repos
-map gv cd ~/videos/recordings
+map gv cd ~/videos
 map gs cd ~/.local/bin
 map gt cd ~/.local/share/Trash/files

@@ -1,4 +1,4 @@
-require("tokyonight").setup({
+require("catppuccin").setup({
   style = "night",
   transparent = true,
   styles = {
@@ -6,5 +6,5 @@ require("tokyonight").setup({
   },
 })
 
-vim.cmd [[colorscheme tokyonight]]
+vim.cmd [[colorscheme catppuccin-mocha]]
 vim.api.nvim_set_hl(0, "ColorColumn", { bg = "none" })

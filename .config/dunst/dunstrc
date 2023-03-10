@@ -15,7 +15,7 @@
     horizontal_padding = 15
     text_icon_padding = 15
     frame_width = 2
-    frame_color = "#787c99"
+    frame_color = "#9399b2"
     separator_color = frame
     sort = yes
     idle_threshold = 120
@@ -34,7 +34,7 @@
     show_indicators = yes
     icon_position = left
     min_icon_size = 0
-    max_icon_size = 48
+    max_icon_size = 32
     icon_path = /home/eric/.local/share/icons/dunst
     sticky_history = yes
     history_length = 20
@@ -52,18 +52,18 @@
     per_monitor_dpi = false
 
 [urgency_low]
-    background = "#11121DCC"
-    foreground = "#787c99"
+    background = "#181825AA"
+    foreground = "#CDD6F4"
     timeout = 10
 
 [urgency_normal]
-    background = "#11121DCC"
-    foreground = "#787c99"
+    background = "#181825AA"
+    foreground = "#CDD6F4"
     timeout = 10
 
 [urgency_critical]
-    background = "#11121DCC"
-    foreground = "#EE6D85"
-    frame_color = "#EE6D85"
+    background = "#181825AA"
+    foreground = "#F38BA8"
+    frame_color = "#F38BA8"
     timeout = -1
     format = "<b>%s</b>\n%b"

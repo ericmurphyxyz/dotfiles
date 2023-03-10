@@ -40,8 +40,9 @@ return require('packer').startup(function(use)
 
     -- color scheme
     use {
-        'folke/tokyonight.nvim',
-        config = function() require('eric.plugins.tokyonight') end
+        "catppuccin/nvim",
+        as = "catppuccin",
+        config = function() require('eric.plugins.theme') end
     }
 
     -- fancier status bar

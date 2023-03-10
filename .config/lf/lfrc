@@ -16,7 +16,11 @@ cmd mkfile ${{
   $EDITOR $ans
 }}
 
-cmd setwallpaper %cp "$f" ~/.config/wall.jpg && xwallpaper --zoom "$f"
+cmd setwallpaper ${{
+    cp "$f" ~/.config/wall.jpg
+    xwallpaper --zoom "$f"
+    betterlockscreen -u "$f" --fx
+}}
 
 # Archive bindings
 cmd unarchive ${{

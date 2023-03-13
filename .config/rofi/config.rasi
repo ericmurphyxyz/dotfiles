@@ -15,7 +15,6 @@ configuration {
   fg: #cdd6f4;
   fg-alt: #7f849c;
 
-  background-color: @bg;
   
   border: 0;
   margin: 0;
@@ -25,10 +24,12 @@ configuration {
 
 window {
   width: 30%;
+  background-color: @bg;
 }
 
 element {
   padding: 8 0;
+  background-color: transparent;
   text-color: @fg-alt;
 }
 
@@ -37,6 +38,7 @@ element selected {
 }
 
 element-text {
+  background-color: transparent;
   text-color: inherit;
   vertical-align: 0.5;
 }
@@ -44,16 +46,18 @@ element-text {
 element-icon {
   size: 14;
   padding: 0 10 0 0;
+  background-color: transparent;
 }
 
 entry {
-  background-color: @bg-alt;
   padding: 12;
+  background-color: @bg-alt;
   text-color: @fg;
 }
 
 inputbar {
   children: [prompt, entry];
+  background-color: @bg;
 }
 
 listview {
@@ -64,14 +68,14 @@ listview {
 }
 
 mainbox {
-  background-color: @bg;
   children: [inputbar, listview];
+  background-color: @bg;
 }
 
 prompt {
-  background-color: @bg-alt;
   enabled: true;
   padding: 12 0 0 12;
+  background-color: @bg-alt;
   text-color: @fg;
 }
 

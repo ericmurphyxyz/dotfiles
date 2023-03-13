@@ -9,8 +9,8 @@ configuration {
 @theme "/dev/null"
 
 * {
-  bg: #1e1e2e99;
-  bg-alt: #31324499;
+  bg: #1e1e2e66;
+  bg-alt: #585b7066;
 
   fg: #cdd6f4;
   fg-alt: #7f849c;
@@ -64,7 +64,7 @@ listview {
   padding: 8 12;
   background-color: @bg;
   columns: 1;
-  lines: 8;
+  lines: 10;
 }
 
 mainbox {

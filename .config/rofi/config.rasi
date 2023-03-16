@@ -11,6 +11,7 @@ configuration {
 * {
   bg: #1e1e2e66;
   bg-alt: #585b7066;
+  bg-selected: #31324466;
 
   fg: #cdd6f4;
   fg-alt: #7f849c;
@@ -28,13 +29,14 @@ window {
 }
 
 element {
-  padding: 8 0;
+  padding: 8 12;
   background-color: transparent;
   text-color: @fg-alt;
 }
 
 element selected {
   text-color: @fg;
+  background-color: @bg-selected;
 }
 
 element-text {
@@ -61,7 +63,6 @@ inputbar {
 }
 
 listview {
-  padding: 8 12;
   background-color: @bg;
   columns: 1;
   lines: 10;

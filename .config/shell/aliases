@@ -10,6 +10,8 @@ alias ls="exa --icons --group-directories-first"
 alias locate="plocate"
 alias tp="trash-put"
 alias tpr="trash-restore"
+alias cat='bat'
+alias grep='grep --color=always'
 
 # windows to swallow
 alias mpv="swallow mpv"

@@ -53,14 +53,6 @@ cmd restore_trash ${{
 }}
 
 # Bindings
-# Remove some defaults
-map m
-map o
-map n
-map "'"
-map '"'
-map d
-
 map c $vscodium "$f"
 
 map au unarchive

@@ -10,7 +10,9 @@ acpi -b | grep "Battery 0" | awk -F'[,:%]' '{print $2, $3}' | {
 	read -r status capacity
 
 	if [ "$status" = Discharging -a "$capacity" -lt 20 ]; then
-		logger "Critical battery threshold"
+        playerctl stop --all-players # Stop all media
+        notify-send "Battery Critically Low" "The computer will power off in 30 seconds to prevent data loss." -u critical -i "battery-alert" -r 9991
+		sleep 30
 		systemctl hibernate
 	fi
 }

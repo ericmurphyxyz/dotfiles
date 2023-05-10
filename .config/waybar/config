@@ -57,13 +57,14 @@
         ]
     },
     "disk": {
-        "interval": 30,
+        "interval": 300,
         "format": "󰋊 {free}",
         "path": "/"
     },
     "network": {
         "tooltip": false,
         "format-wifi": "󰖩 {essid}",
+        "format-disconnected": "睊",
         "format-ethernet": ""
     },
     "pulseaudio": {

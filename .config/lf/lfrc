@@ -20,9 +20,7 @@ cmd mkfile ${{
 }}
 
 cmd setwallpaper ${{
-    cp "$f" ~/.config/wall.jpg
-    xwallpaper --zoom "$f"
-    betterlockscreen -u "$f" --fx
+    setwallpaper "$f"
 }}
 
 # Archive bindings

@@ -95,6 +95,7 @@ button {
 
 #workspaces button.urgent {
     background-color: @red;
+    color: @crust;
 }
 
 #clock,
@@ -172,7 +173,7 @@ label:focus {
     color: @blue;
 }
 
-#battery.critical:not(.charging) {
+#battery.warning:not(.charging) {
     background-color: @red;
     color: @crust;
 }

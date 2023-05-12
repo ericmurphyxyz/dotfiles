@@ -1,4 +1,5 @@
 ncmpcpp_directory = ~/.config/ncmpcpp
+lyrics_directory = ~/.local/share/mpd/lyrics
 mpd_music_dir = ~/music
 
 [playlist]

@@ -27,7 +27,12 @@ alias pa="paru"
 alias nb="newsboat"
 alias za="zathura"
 alias code="vscodium"
-alias lf="lfcd"
+alias ytdl="yt-dlp --no-mtime"
+
+# aliases to clean up home directory
+alias monerod=monerod --data-dir "$XDG_DATA_HOME"/bitmonero
+alias svn="svn --config-dir $XDG_CONFIG_HOME/subversion"
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 
 # git aliases
 alias g="git"

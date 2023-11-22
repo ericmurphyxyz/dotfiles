@@ -2,27 +2,33 @@
     monitor = 0
     follow = mouse
     width = 350
-    offset = 10x40
+    offset = 20x20
+    origin = top-right
+
     progress_bar = true
     progress_bar_height = 10
     progress_bar_frame_width = 1
     progress_bar_min_width = 150
     progress_bar_max_width = 400
+    progress_bar_corner_radius = 5
+
     indicate_hidden = yes
     shrink = no
     separator_height = 2
     padding = 15
     horizontal_padding = 15
-    text_icon_padding = 15
+    text_icon_padding = 20
     frame_width = 2
     frame_color = "#9399b2"
+    corner_radius = 10
     separator_color = frame
     sort = yes
     idle_threshold = 120
-    font = JetBrains Mono Nerd Font Medium 10
+
+    font = JetBrainsMono Nerd Font 10
     line_height = 0
     markup = full
-    format = "<span weight='bold'>%s</span>\n%b"
+    format = "<span weight='bold' font='12'>%s</span>\n%b"
     alignment = left
     vertical_alignment = center
     show_age_threshold = 60
@@ -33,8 +39,8 @@
     hide_duplicate_count = false
     show_indicators = yes
     icon_position = left
-    min_icon_size = 0
-    max_icon_size = 32
+    min_icon_size = 48
+    max_icon_size = 48
     icon_path = /home/eric/.local/share/icons/dunst
     sticky_history = yes
     history_length = 20
@@ -52,18 +58,22 @@
     per_monitor_dpi = false
 
 [urgency_low]
-    background = "#181825AA"
+    background = "#181825FF"
     foreground = "#CDD6F4"
+    highlight = "#CDD6F4"
     timeout = 10
 
 [urgency_normal]
-    background = "#181825AA"
+    background = "#181825FF"
     foreground = "#CDD6F4"
+    highlight = "#CDD6F4"
     timeout = 10
 
 [urgency_critical]
-    background = "#181825AA"
-    foreground = "#F38BA8"
+    background = "#F38BA8"
+    foreground = "#181825"
     frame_color = "#F38BA8"
-    timeout = -1
+    timeout = 1000
     format = "<b>%s</b>\n%b"
+
+# vim: ft=cfg

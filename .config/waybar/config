@@ -4,7 +4,7 @@
     "spacing": 5,
     // Choose the order of the modules
     "modules-left": [
-        "wlr/workspaces"
+        "hyprland/workspaces"
     ],
     "modules-center": [
         "clock"
@@ -17,7 +17,7 @@
         "battery",
         "custom/power"
     ],
-    "wlr/workspaces": {
+    "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
         "on-click": "activate"
@@ -32,9 +32,8 @@
         "interval": 600
     },
     "clock": {
-        // "timezone": "America/New_York",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "{: %H:%M   %a, %b %d}"
+        "format": " {:%H:%M   %a, %b %d}"
     },
     "battery": {
         "states": {
@@ -64,7 +63,8 @@
         "tooltip": false,
         "format-wifi": "󰖩 {essid}",
         "format-disconnected": "睊",
-        "format-ethernet": ""
+        "format-ethernet": "",
+        "on-click": "rofi-wifi-menu"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float

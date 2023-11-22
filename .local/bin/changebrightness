@@ -4,8 +4,8 @@
 # and send a notification displaying the current brightness level after.
 
 send_notification() {
-	brightness=$(printf "%.0f\n" "$(brillo -G)")
-	dunstify -a "changebrightness" -u low -r 9991 -h int:value:"$brightness" -i "brightness" "$brightness%" -t 2000
+	brightness=$(printf "%.0f\n" "$(brillo -Gq)")
+	dunstify -a "changebrightness" -u low -r 9993 -h int:value:"$brightness" -i "brightness" "Brightness" "Currently at $brightness%" -t 2000
 }
 
 case $1 in

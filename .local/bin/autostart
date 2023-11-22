@@ -16,7 +16,7 @@ dunst &
 redshift &
 
 # set the wallpaper
-xwallpaper --zoom $HOME/.config/wall.jpg &
+xwallpaper --zoom $HOME/.local/share/wall.jpg &
 
 # suspend after 30 minutes of inactivity
 xidlehook --not-when-audio --not-when-fullscreen --timer 1800 'systemctl suspend-then-hibernate' '' & # automatically suspend after 30 minutes of inactivity

@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
-# Starts a scan of available broadcasting SSIDs
-# nmcli dev wifi rescan
 notify-send "Getting list of available Wi-Fi networks..."
+# Get a list of available wifi connections and morph it into a nice-looking list
 wifi_list=$(nmcli --fields "SECURITY,SSID" device wifi list | sed 1d | sed 's/  */ /g' | sed -E "s/WPA*.?\S/ /g" | sed "s/^--/ /g" | sed "s/  //g" | sed "/--/d")
-# Gives a list of known connections so we can parse it later
 
 connected=$(nmcli -fields WIFI g)
 if [[ "$connected" =~ "enabled" ]]; then
@@ -13,10 +11,11 @@ elif [[ "$connected" =~ "disabled" ]]; then
 	toggle="直  Enable Wi-Fi"
 fi
 
+# Use rofi to select wifi network
 chosen_network=$(echo -e "$toggle\n$wifi_list" | uniq -u | rofi -dmenu -i -selected-row 1 -p "Wi-Fi SSID: " )
+# Get name of connection
 chosen_id=$(echo "${chosen_network:3}" | xargs)
 
-# Parses the list of preconfigured connections to see if it already contains the chosen SSID. This speeds up the connection process
 if [ "$chosen_network" = "" ]; then
 	exit
 elif [ "$chosen_network" = "直  Enable Wi-Fi" ]; then
@@ -26,7 +25,7 @@ elif [ "$chosen_network" = "睊  Disable Wi-Fi" ]; then
 else
 	# Message to show when connection is activated successfully
 	success_message="You are now connected to the Wi-Fi network \"$chosen_id\"."
-	# Get known connections
+	# Get saved connections
 	saved_connections=$(nmcli -g NAME connection)
 	if [[ $(echo "$saved_connections" | grep -w "$chosen_id") = "$chosen_id" ]]; then
 		nmcli connection up id "$chosen_id" | grep "successfully" && notify-send "Connection Established" "$success_message"

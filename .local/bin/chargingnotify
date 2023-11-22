@@ -7,7 +7,7 @@
 # Check if argument is passed
 [ $# != 1 ] && printf '0 or 1 must be passed as an argument.\nUsage: %s 0|1\n' "$0" && exit
 
-export XAUTHORITY=/home/eric/.Xauthority
+export XAUTHORITY=~/.Xauthority
 export DISPLAY=:0
 export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
 

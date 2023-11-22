@@ -11,10 +11,10 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
-
-export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
 export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 
+export HISTFILE="~/.bash_history"
+#export HISTFILE="${XDG_STATE_HOME}"/bash/history
 export ELECTRUMDIR="$XDG_DATA_HOME/electrum"
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
@@ -25,7 +25,6 @@ export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
 export TERMINFO="$XDG_DATA_HOME"/terminfo
 export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:/usr/share/terminfo
 export WINEPREFIX="$XDG_DATA_HOME"/wine
-
 export NOTMUCH_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/notmuch-config"
 export LESSHISTFILE="-"
 export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc"
@@ -37,9 +36,7 @@ export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
 export N_PREFIX="$HOME/.local/bin/n"
 export ZDOTDIR="$HOME/.config/zsh"
 export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
-
 export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
-export HISTFILE="${XDG_STATE_HOME}"/bash/history
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 
 export MANPAGER="less -R --use-color -Dd+r -Du+b"

@@ -4,6 +4,10 @@ configuration {
   drun-display-format: "{name}";
   font: "JetBrainsMono Nerd Font Medium 10";
   modi: "window,run,drun,emoji,calc";
+  
+  // enabling the icons
+  show-icons: true;
+  icon-theme: "Papirus";
 }
 
 @theme "/dev/null"

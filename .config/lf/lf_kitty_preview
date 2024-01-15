@@ -40,7 +40,7 @@ case "$(basename "$file" | tr '[A-Z]' '[a-z]')" in
 	convert "$file" "$thumbnail"
 	preview "$thumbnail"
 	;;
-*) lf_bat_preview "$file" ;;
+*) previewer "$file" ;;
 esac
 return 127 # nonzero retcode required for lf previews to reload
 

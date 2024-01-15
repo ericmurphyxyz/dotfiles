@@ -7,6 +7,7 @@ alias rm="rm -vI"
 alias bc="bc -ql"
 alias mkd="mkdir -pv"
 alias ls="exa --icons --group-directories-first"
+alias lf="lfcd"
 alias locate="plocate"
 alias tp="trash-put"
 alias tpr="trash-restore"
@@ -58,8 +59,7 @@ alias gb="git branch"
 alias gf="git fetch"
 
 # aliases for dotfiles git bare repo
-alias dotfiles='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
-alias dfa='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME add'
-alias dfc='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME commit'
-alias dfp='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME push'
-
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dfa='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME add'
+alias dfc='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME commit'
+alias dfp='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME push'

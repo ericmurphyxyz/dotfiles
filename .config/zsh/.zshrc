@@ -31,6 +31,7 @@ setopt hist_ignore_space
 setopt hist_verify
 setopt inc_append_history
 setopt share_history
+setopt no_list_ambiguous
 
 autoload -U compinit 
 compinit
@@ -48,6 +49,7 @@ source ~/.config/zsh/zsh-history-substring-search/zsh-history-substring-search.z
 source ~/.config/lf/lfcd
 
 zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 # history substring search options
 bindkey '^[[A' history-substring-search-up

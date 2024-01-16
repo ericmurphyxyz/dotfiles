@@ -129,7 +129,11 @@ lazy.setup({
   -- Utilities
   {'moll/vim-bbye'},
   {'nvim-lua/plenary.nvim'},
-  {'akinsho/toggleterm.nvim'},
+	{'akinsho/toggleterm.nvim'},
+	{'folke/which-key.nvim', config = function()
+		vim.o.timeout = true
+		vim.o.timeoutlen = 300
+	end	},
 })
 
 
@@ -277,7 +281,6 @@ vim.keymap.set('n', '<leader>fs', '<cmd>Telescope current_buffer_fuzzy_find<cr>'
 
 require('telescope').load_extension('fzf')
 
-
 ---
 -- nvim-tree (File explorer)
 ---
@@ -311,3 +314,7 @@ require('toggleterm').setup({
   shade_terminals = true
 })
 
+---
+-- which-key
+--
+require("which-key").setup {}

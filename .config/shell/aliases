@@ -21,10 +21,8 @@ alias feh="swallow feh"
 
 # application aliases
 alias v="$EDITOR"
-alias vw="$EDITOR ~/documents/vimwiki/index.md"
 alias vim="$EDITOR"
-alias p="sudo pacman"
-alias pa="paru"
+alias p="paru"
 alias nb="newsboat"
 alias za="zathura"
 alias code="vscodium"
@@ -59,7 +57,7 @@ alias gb="git branch"
 alias gf="git fetch"
 
 # aliases for dotfiles git bare repo
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias dfa='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME add'
-alias dfc='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME commit'
-alias dfp='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME push'
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias cfa='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME add'
+alias cfc='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME commit'
+alias cfp='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME push'

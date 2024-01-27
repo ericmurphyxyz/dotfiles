@@ -41,7 +41,7 @@
     icon_position = left
     min_icon_size = 48
     max_icon_size = 48
-    icon_path = /home/eric/.local/share/icons/dunst
+    icon_path = $HOME/.local/share/icons/dunst
     sticky_history = yes
     history_length = 20
     always_run_script = true

@@ -160,7 +160,7 @@ label:focus {
 }
 
 #pulseaudio.muted {
-  color: @overlay1;
+  color: @surface2;
 }
 
 #network {
@@ -168,7 +168,7 @@ label:focus {
 }
 
 #network.disconnected {
-  color: @overlay1;
+  color: @surface2;
 }
 
 #battery {

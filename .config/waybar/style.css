@@ -30,7 +30,7 @@
 @define-color rosewater #f5e0dc;
 
 * {
-    font-family: Cantarell, JetBrainsMono Nerd Font;
+    font-family: Cantarell, Symbols Nerd Font;
     font-weight: bolder;
     font-size: 14px;
 }
@@ -129,18 +129,9 @@ button {
     margin: 0 4px;
 }
 
-/* If workspaces is the leftmost module, omit left margin */
+/* If workspaces is the leftmost module, reduce left margin */
 .modules-left > widget:first-child > #workspaces {
-    margin-left: 0;
-}
-
-/* If workspaces is the rightmost module, omit right margin */
-.modules-right > widget:last-child > #workspaces {
-    margin-right: 0;
-}
-
-label:focus {
-    background-color: #000000;
+    margin-left: 2px;
 }
 
 #clock {
@@ -149,10 +140,6 @@ label:focus {
 
 #custom-pacman {
   color: @peach;
-}
-
-#disk {
-    color: @peach;
 }
 
 #pulseaudio {

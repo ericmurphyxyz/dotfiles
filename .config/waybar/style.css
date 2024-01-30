@@ -30,8 +30,9 @@
 @define-color rosewater #f5e0dc;
 
 * {
-    font-family: JetBrainsMono Nerd Font;
-    font-size: 13px;
+    font-family: Cantarell, JetBrainsMono Nerd Font;
+    font-weight: bolder;
+    font-size: 14px;
 }
 
 window#waybar {
@@ -74,28 +75,30 @@ button {
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 
 #workspaces button:hover {
-    background: @surface0;
-    border: @surface0;
+    color: @blue;
+    box-shadow: inherit;
+    text-shadow: inherit;
+    background: @crust;
+    border: @crust;
 }
 
 #workspaces button {
-    padding: 0 8px;
-    color: @text;
-    border-radius: 15px;
-    margin: 5px 0 5px 5px;
+    padding: 0 5px;
+    color: @surface2;
+    margin: 4px 0 4px 6px;
+    transition: color 200ms ease-in-out;
 }
 
 #workspaces button.selected {
-    background-color: @text;
+    color: @blue;
 }
 
 #workspaces button.active {
-    background-color: @surface0;
+    color: @blue;
 }
 
 #workspaces button.urgent {
-    background-color: @red;
-    color: @crust;
+    color: @red;
 }
 
 #clock,
@@ -108,16 +111,15 @@ button {
 #network,
 #pulseaudio,
 #wireplumber,
+#custom-pacman,
 #custom-power,
-#custom-updates,
 #tray,
 #mode,
 #idle_inhibitor,
 #scratchpad,
 #mpd {
-    padding: 0 12px;
-    background-color: @base;
-    color: @crust;
+    padding: 0 9px;
+    color: @text;
     border-radius: 15px;
     margin: 5px 0;
 }
@@ -145,8 +147,8 @@ label:focus {
   color: @text;
 }
 
-#custom-updates {
-  color: @red;
+#custom-pacman {
+  color: @peach;
 }
 
 #disk {
@@ -154,32 +156,32 @@ label:focus {
 }
 
 #pulseaudio {
-  color: @yellow;
+  color: @mauve;
 }
 
 #pulseaudio.muted {
-  color: @overlay1;
+  color: @surface2;
 }
 
 #network {
-  color: @green;
+  color: @blue;
 }
 
 #network.disconnected {
-  color: @overlay1;
+  color: @surface2;
 }
 
 #battery {
-    color: @blue;
+    color: @green;
 }
 
 #battery.warning:not(.charging) {
-    background-color: @red;
-    color: @crust;
+    color: @red;
 }
 
 #custom-power {
-  color: @mauve;
+  color: @maroon;
+  margin-right: 5px;
 }
 
 #keyboard-state > label {

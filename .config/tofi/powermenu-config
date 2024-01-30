@@ -1,0 +1,21 @@
+prompt-text = "  "
+
+text-color = #cdd6f4
+prompt-color = #f38ba8
+selection-background = #cba6f7
+selection-background-padding = 10, 16
+selection-background-corner-radius = 10
+selection-color = #1e1e2e
+background-color = #1e1e2edd
+
+width = 100%
+height = 100%
+border-width = 0
+outline-width = 0
+padding-left = 35%
+padding-top = 32%
+result-spacing = 25
+num-results = 6
+font = Cantarell
+font-variations = "wght 600"
+font-size = 32

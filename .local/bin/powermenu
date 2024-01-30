@@ -1,6 +1,6 @@
 #! /bin/sh
 
-chosen=$(printf "Suspend\nReboot\nShutdown\nLog Out" | tofi)
+chosen=$(printf "Suspend\nReboot\nShutdown\nLog Out" | tofi --config $HOME/.config/tofi/powermenu-config)
 
 case "$chosen" in
 	"Suspend") systemctl suspend-then-hibernate ;;

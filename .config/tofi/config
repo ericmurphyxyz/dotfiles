@@ -1,21 +1,18 @@
-prompt-text = "  "
+prompt-text = "> "
 
 text-color = #cdd6f4
-prompt-color = #f38ba8
-selection-background = #cba6f7
-selection-background-padding = 10, 16
-selection-background-corner-radius = 10
-selection-color = #1e1e2e
+prompt-color = #585b70
+selection-color = #cba6f7
 background-color = #1e1e2edd
 
 width = 100%
+padding-left = 35%
+padding-top = 30%
 height = 100%
 border-width = 0
 outline-width = 0
-padding-left = 35%
-padding-top = 35%
-result-spacing = 25
-num-results = 6
+result-spacing = 14
+num-results = 8
 font = Cantarell
 font-variations = "wght 600"
 font-size = 24

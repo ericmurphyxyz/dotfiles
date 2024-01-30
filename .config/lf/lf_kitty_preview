@@ -9,7 +9,7 @@ preview() {
     kitty +kitten icat --silent --stdin no --transfer-mode file --place "${w}x${h}@${x}x${y}" "$1" < /dev/null > /dev/tty
 }
 
-TEMPDIR=/home/eric/.cache
+TEMPDIR=~/.cache
 
 file="$1"; shift
 case "$(basename "$file" | tr '[A-Z]' '[a-z]')" in

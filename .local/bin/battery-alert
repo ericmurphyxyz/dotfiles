@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# Send a notification if the laptop battery is either low 
-# or is fully charged. Set on a systemd timer (~/.config/systemd/user/battery-alert.timer).
+# Send a notification if the laptop battery is either low or is fully charged.
+# Set on a systemd timer (~/.config/systemd/user/battery-alert.timer).
 
 export DISPLAY=:0
 export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
@@ -32,9 +32,8 @@ if [ "$BATTERY_LEVEL" -gt 99 ] && [ "$BATTERY_DISCHARGING" -eq 0 ] && [ ! -f $FU
 elif [ "$BATTERY_LEVEL" -le $WARNING_LEVEL ] && [ "$BATTERY_DISCHARGING" -eq 1 ] && [ ! -f $EMPTY_FILE ]; then
     notify-send "Low Battery" "${BATTERY_LEVEL}% of battery remaining." -u critical -i "battery-alert" -r 9991
     touch $EMPTY_FILE
-fi
 # If the battery is critical and is not charging (and has not shown notification yet)
-elif [ "$BATTERY_LEVEL" -le $CRITICAL_LEVEL ] && [ "$BATTERY_DISCHARGING" -eq 1 ] && [ ! -f $EMPTY_FILE ]; then
-    notify-send "Battery Critical" "${BATTERY_LEVEL}% of battery remaining." -u critical -i "battery-alert" -r 9991
-    touch $EMPTY_FILE
+elif [ "$BATTERY_LEVEL" -le $CRITICAL_LEVEL ] && [ "$BATTERY_DISCHARGING" -eq 1 ] && [ ! -f $CRITICAL_FILE ]; then
+    notify-send "Battery Critical" "The computer will shutdown soon." -u critical -i "battery-alert" -r 9991
+    touch $CRITICAL_FILE
 fi

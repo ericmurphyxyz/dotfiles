@@ -7,7 +7,7 @@ export DISPLAY=:0
 export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
 
 # Battery percentage at which to notify
-WARNING_LEVEL=30
+WARNING_LEVEL=20
 BATTERY_DISCHARGING=$(acpi -b | grep "Battery 0" | grep -c "Discharging")
 BATTERY_LEVEL=$(acpi -b | grep "Battery 0" | grep -P -o '[0-9]+(?=%)')
 
@@ -23,7 +23,7 @@ elif [ "$BATTERY_DISCHARGING" -eq 0 ] && [ -f $EMPTY_FILE ]; then
 fi
 
 # If the battery is charging and is full (and has not shown notification yet)
-if [ "$BATTERY_LEVEL" -gt 95 ] && [ "$BATTERY_DISCHARGING" -eq 0 ] && [ ! -f $FULL_FILE ]; then
+if [ "$BATTERY_LEVEL" -gt 99 ] && [ "$BATTERY_DISCHARGING" -eq 0 ] && [ ! -f $FULL_FILE ]; then
     notify-send "Battery Charged" "Battery is fully charged." -i "battery" -r 9991
     touch $FULL_FILE
 # If the battery is low and is not charging (and has not shown notification yet)

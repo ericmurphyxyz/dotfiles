@@ -1,9 +1,9 @@
 [global]
     monitor = 0
     follow = mouse
-    width = 350
-    offset = 20x20
-    origin = top-right
+		width = 350
+    origin = bottom-right
+    offset = 48x48
 
     progress_bar = true
     progress_bar_height = 10
@@ -14,18 +14,16 @@
 
     indicate_hidden = yes
     shrink = no
-    separator_height = 2
+		separator_height = 2
+    separator_color = "#11111b"
     padding = 15
     horizontal_padding = 15
-    text_icon_padding = 20
-    frame_width = 2
-    frame_color = "#9399b2"
+    frame_width = 0
     corner_radius = 10
-    separator_color = frame
     sort = yes
     idle_threshold = 120
 
-    font = JetBrainsMono Nerd Font 10
+    font = Maple Mono 10
     line_height = 0
     markup = full
     format = "<span weight='bold' font='12'>%s</span>\n%b"
@@ -39,8 +37,8 @@
     hide_duplicate_count = false
     show_indicators = yes
     icon_position = left
-    min_icon_size = 48
-    max_icon_size = 48
+    min_icon_size = 50
+    max_icon_size = 60
     icon_path = /home/eric/.local/share/icons/dunst
     sticky_history = yes
     history_length = 20
@@ -58,22 +56,32 @@
     per_monitor_dpi = false
 
 [urgency_low]
-    background = "#181825FF"
+    background = "#181825"
     foreground = "#CDD6F4"
     highlight = "#CDD6F4"
-    timeout = 10
+    frame_color = "#181825"
+    timeout = 5
 
 [urgency_normal]
-    background = "#181825FF"
+    background = "#181825"
     foreground = "#CDD6F4"
     highlight = "#CDD6F4"
-    timeout = 10
+    frame_color = "#181825"
+    timeout = 5
 
 [urgency_critical]
-    background = "#F38BA8"
-    foreground = "#181825"
-    frame_color = "#F38BA8"
+    background = "#181825"
+    foreground = "#CDD6F4"
+    frame_color = "#f38ba8"
     timeout = 1000
     format = "<b>%s</b>\n%b"
+
+[volume]
+    appname = "Volume"
+    highlight = "#cba6f7"
+
+[backlight]
+    appname = "Backlight"
+    highlight = "#eba0ac"
 
 # vim: ft=cfg

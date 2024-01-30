@@ -6,7 +6,7 @@ selection-background = #cba6f7
 selection-background-padding = 10, 16
 selection-background-corner-radius = 10
 selection-color = #1e1e2e
-background-color = #1e1e2edd
+background-color = #181825dd
 
 width = 100%
 height = 100%

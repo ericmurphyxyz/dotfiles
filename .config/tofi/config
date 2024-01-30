@@ -3,7 +3,7 @@ prompt-text = "> "
 text-color = #cdd6f4
 prompt-color = #585b70
 selection-color = #cba6f7
-background-color = #1e1e2edd
+background-color = #181825dd
 
 width = 100%
 padding-left = 35%

@@ -74,7 +74,6 @@
     foreground = "#CDD6F4"
     frame_color = "#f38ba8"
     timeout = 1000
-    format = "<b>%s</b>\n%b"
 
 [volume]
     appname = "Volume"

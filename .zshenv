@@ -4,13 +4,14 @@ export TERMINAL="kitty"
 export BROWSER="firefox"
 #
 # Adds ~/.local/bin and subfolders to $PATH
-export PATH="$PATH:/home/eric/.local/share/go/bin:${$(find ~/.local/bin -maxdepth 1 -type d -printf %p:)%%:}"
+export PATH="$PATH:${$(find ~/.local/bin -maxdepth 1 -type d -printf %p:)%%:}"
 
 # cleaning up home folder
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_SCREENSHOTS_DIR="$HOME/Pictures/screenshots"
 export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 
 export HISTFILE="~/.bash_history"
@@ -39,6 +40,7 @@ export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
 export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 
+export BAT_THEME="Catppuccin-mocha"
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 
 export WINIT_X11_SCALE_FACTOR=1.75 alacritty

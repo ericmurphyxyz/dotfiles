@@ -1,0 +1,8 @@
+#!/bin/sh
+# We need this to prevent idling while watching video
+# https://github.com/ErikReider/SwayAudioIdleInhibit
+sway-audio-idle-inhibit &
+swayidle -w \
+	timeout 300 'lockscreen' \
+	timeout 600 'systemctl suspend' \
+	before-sleep 'lockscreen'

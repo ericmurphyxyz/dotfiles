@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if pgrep swaylock 2>/dev/null; then
+    exit 0
+fi
+
+playerctl pause
+swaylock -f

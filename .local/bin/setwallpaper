@@ -9,24 +9,14 @@ wallpaper_location=${XDG_DATA_HOME:-$HOME/.local/share}/wall.jpg
 
 # if image is passed, copy the image to wallpaper_location
 if [ $# -gt 0 ]; then
-    # check if file passed is an image, return an error otherwise 
-    case "$(file --mime-type -b "$1")" in
-        image/* ) echo "Setting wallpaper..." && convert "$1" "$wallpaper_location" ;;
-        *) echo "Not a valid image or directory." ; exit 1;;
-    esac
-
-    # update the lockscreen background
-    if [ "$XDG_SESSION_TYPE" = "x11" ]; then
-        betterlockscreen -u "$wallpaper_location" --fx
-    fi
-fi
+	# check if file passed is an image, return an error otherwise 
+	case "$(file --mime-type -b "$1")" in
+		image/* ) echo "Setting wallpaper..." && convert "$1" "$wallpaper_location" ;;
+		*) echo "Not a valid image or directory." ; exit 1;;
+	esac
+	fi
 
 
-if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
-    # restart hyprpaper
-    pkill hyprpaper
-    nohup hyprpaper >/dev/null 2>&1 &
-else 
-    xwallpaper --zoom "$wallpaper_location"
-    betterlockscreen -u "$1" --fx
-fi
+# restart hyprpaper
+pkill hyprpaper
+nohup hyprpaper >/dev/null 2>&1 &

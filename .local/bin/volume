@@ -1,48 +1,45 @@
-#!/bin/bash
+#!/bin/sh
 
 # Increment, decrement, or mute the volume and send a notification
 # of the current volume level.
 
-send_notification() {
-	VOLUME=$(pamixer --get-volume)
+case $1 in
+	up)
+		# Set the volume on (if it was muted)
+		wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
+		wpctl set-volume -l 2.0 @DEFAULT_AUDIO_SINK@ 5%+
+		;;
+	down)
+		wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
+		wpctl set-volume -l 2.0 @DEFAULT_AUDIO_SINK@ 5%-
+		;;
+	mute)
+		wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+		;;
+esac
 
-	if [ "$1" = "mute" ]; then
-		ICON="volume-mute"
-	elif [ "$VOLUME" -lt 33 ]; then
-		ICON="volume-low"
-	elif [ "$VOLUME" -lt 66 ]; then
-		ICON="volume-medium"
-	else
-		ICON="volume-high"
-	fi
+VOLUME=$(echo $(wpctl get-volume @DEFAULT_AUDIO_SINK@ | tr -dc '0-9')| sed 's/^0*//')
 
-	if [ "$1" = "mute" ]; then
-		TEXT="Currently muted"
-	else
-		TEXT="Currently at ${VOLUME}%"
-	fi
-
-	dunstify -a "Volume" -u low -r 9993 -h int:value:"$VOLUME" -i $ICON "Volume" "$TEXT" -t 1000
-}
+if [ "$VOLUME" -lt 33 ]; then
+	ICON="volume-low"
+elif [ "$VOLUME" -lt 66 ]; then
+	ICON="volume-medium"
+else
+	ICON="volume-high"
+fi
 
 case $1 in
-up)
-	# Set the volume on (if it was muted)
-	pamixer -u
-	pamixer -i 5 --allow-boost
-	send_notification up
-	;;
-down)
-	pamixer -u
-	pamixer -d 5 --allow-boost
-	send_notification down
-	;;
-mute)
-	pamixer -t
-	if eval "$(pamixer --get-mute)"; then
-		send_notification mute
-	else
-		send_notification
-	fi
-	;;
+	up)
+		dunstify -a "Volume" -r 9993 -h int:value:"$VOLUME" -i $ICON "Volume" "Currently at ${VOLUME}%" -t 2000
+		;;
+	down)
+		dunstify -a "Volume" -r 9993 -h int:value:"$VOLUME" -i $ICON "Volume" "Currently at ${VOLUME}%" -t 2000
+		;;
+	mute)
+		if [[ "$(wpctl get-volume @DEFAULT_AUDIO_SINK@)" == *"MUTED"* ]]; then
+			dunstify -a "Volume" -r 9993 -h int:value:"$VOLUME" -i "volume-mute" "Volume" "Currently muted" -t 2000
+		else
+			dunstify -a "Volume" -r 9993 -h int:value:"$VOLUME" -i $ICON "Volume" "Currently at ${VOLUME}%" -t 2000
+		fi
+		;;
 esac

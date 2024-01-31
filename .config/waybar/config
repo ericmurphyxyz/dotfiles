@@ -43,13 +43,12 @@
     },
     "battery": {
         "states": {
-            // "good": 95,
+            "good": 76,
             "warning": 20
         },
         "format": "{icon}",
         "format-charging": "󰂄",
-        // "format-good": "", // An empty format will hide the module
-        "format-full": "󰁹 {capacity}%",
+        "format-good": "󰁹",
         "format-icons": [ "󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹" ],
 				"tooltip-format": "{capacity}% capacity"
     },
@@ -66,10 +65,10 @@
 					"default": ["", "", "󰕾"]
 				},
 				"tooltip-format": "{volume}% volume"
-    },
+		},
     "custom/power": {
         "format": "󰐥",
-        "on-click": "powermenu"
+        "on-click": "sleep 0.15 && powermenu"
     }
 }
 

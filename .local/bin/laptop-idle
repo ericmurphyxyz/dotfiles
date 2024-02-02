@@ -1,6 +1,9 @@
 #!/bin/sh
-# We need this to prevent idling while watching video
+
+# Automatically lock and suspend laptop after idle
+# I use sway-audio-idle-inhibit to prevent idling while watching video
 # https://github.com/ErikReider/SwayAudioIdleInhibit
+
 sway-audio-idle-inhibit &
 swayidle -w \
 	timeout 300 'lockscreen' \

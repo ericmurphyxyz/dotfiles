@@ -1,8 +1,10 @@
-#! /bin/sh
+#!/bin/sh
 
-chosen=$(printf "Lock\nSuspend\nReboot\nShutdown\nLog Out" | tofi --config $HOME/.config/tofi/powermenu-config)
+# Power menu script using tofi
 
-case "$chosen" in
+CHOSEN=$(printf "Lock\nSuspend\nReboot\nShutdown\nLog Out" | tofi --config "$HOME"/.config/tofi/powermenu-config)
+
+case "$CHOSEN" in
 	"Lock") lockscreen ;;
 	"Suspend") systemctl suspend-then-hibernate ;;
 	"Reboot") reboot ;;

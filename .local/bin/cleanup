@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# Script to trash temporary files in folders older than 30 days
-# Some of my folders were getting too bloated
-# Set as a cron job to execute every day, e.g.:
-# @daily /home/user/.local/bin/cleanup
-
-find "$HOME"/downloads "$HOME"/videos/recordings "$HOME"/pictures/screenshots -type f -mtime +30 -exec trash-put {} \;

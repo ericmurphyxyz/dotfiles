@@ -1,7 +1,6 @@
 #!/bin/sh
 
-# Increment, decrement, or mute the volume and send a notification
-# of the current volume level.
+# Increment, decrement, or mute the volume using Pipewire and send a notification
 
 case $1 in
 	up)
@@ -18,28 +17,22 @@ case $1 in
 		;;
 esac
 
-VOLUME=$(echo $(wpctl get-volume @DEFAULT_AUDIO_SINK@ | tr -dc '0-9')| sed 's/^0*//')
+VOLUME=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | tr -dc '0-9' | sed 's/^0*//')
 
-if [ "$VOLUME" -lt 33 ]; then
-	ICON="volume-low"
-elif [ "$VOLUME" -lt 66 ]; then
-	ICON="volume-medium"
-else
-	ICON="volume-high"
-fi
+
+send_notification() {
+	if [ "$1" = "mute" ]; then ICON="mute"; elif [ "$VOLUME" -lt 33 ]; then ICON="low"; elif [ "$VOLUME" -lt 66 ]; then ICON="medium"; else ICON="high"; fi
+	if [ "$1" = "mute" ]; then TEXT="Currently muted"; else TEXT="Currently at ${VOLUME}%"; fi
+
+	dunstify -a "Volume" -r 9993 -h int:value:"$VOLUME" -i "volume-$ICON" "Volume" "$TEXT" -t 2000
+}
 
 case $1 in
-	up)
-		dunstify -a "Volume" -r 9993 -h int:value:"$VOLUME" -i $ICON "Volume" "Currently at ${VOLUME}%" -t 2000
-		;;
-	down)
-		dunstify -a "Volume" -r 9993 -h int:value:"$VOLUME" -i $ICON "Volume" "Currently at ${VOLUME}%" -t 2000
-		;;
 	mute)
-		if [[ "$(wpctl get-volume @DEFAULT_AUDIO_SINK@)" == *"MUTED"* ]]; then
-			dunstify -a "Volume" -r 9993 -h int:value:"$VOLUME" -i "volume-mute" "Volume" "Currently muted" -t 2000
-		else
-			dunstify -a "Volume" -r 9993 -h int:value:"$VOLUME" -i $ICON "Volume" "Currently at ${VOLUME}%" -t 2000
-		fi
-		;;
+		case "$(wpctl get-volume @DEFAULT_AUDIO_SINK@)" in
+			*MUTED* ) send_notification mute;;
+			*       ) send_notification;;
+		esac;;
+	*)
+		send_notification;;
 esac

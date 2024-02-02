@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Script for use in waybar to display # of pacman updates
+
 OUTPUT="$(checkupdates)"
 
 if [ -z "$OUTPUT" ]; then
@@ -10,6 +12,6 @@ else
 
 	TOOLTIP="$NUMBER updates found"
 
-	echo "{\"text\":\""$TEXT"\", \"tooltip\":\""$TOOLTIP"\"}"
+	echo "{\"text\":\"""$TEXT""\", \"tooltip\":\"""$TOOLTIP""\"}"
 	exit 0
 fi

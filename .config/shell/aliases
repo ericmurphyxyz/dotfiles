@@ -53,7 +53,8 @@ alias gf="git fetch"
 
 # aliases for dotfiles git bare repo
 alias cf="dotbare"
+alias cfa="dotbare fadd"
 alias cfc="dotbare commit"
 alias cfp="dotbare push"
-alias cs="dotbare fstat"
-alias ce="dotbare fedit"
+alias cfs="dotbare fstat"
+alias c="dotbare fedit"

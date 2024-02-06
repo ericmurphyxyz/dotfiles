@@ -7,6 +7,9 @@ fi
 
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/lib"
 
+export DOTBARE_DIR="$HOME/.dotfiles"
+export DOTBARE_TREE="$HOME"
+
 # History in cache directory:
 HISTSIZE=10000
 SAVEHIST=10000
@@ -42,6 +45,7 @@ bindkey '^e' end-of-line
 # theme/plugins
 source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.config/zsh/dotbare/dotbare.plugin.zsh
 source ~/.config/zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 #source ~/.config/zsh/zsh-auto-notify/auto-notify.plugin.zsh
 #source ~/.config/zsh/you-should-use/you-should-use.plugin.zsh
@@ -64,4 +68,3 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
-

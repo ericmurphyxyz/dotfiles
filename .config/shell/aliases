@@ -14,11 +14,6 @@ alias tpr="trash-restore"
 alias cat='bat'
 alias grep='grep --color=always'
 
-# windows to swallow
-alias mpv="swallow mpv"
-alias zathura="swallow zathura"
-alias feh="swallow feh"
-
 # application aliases
 alias v="$EDITOR"
 alias vim="$EDITOR"
@@ -57,7 +52,8 @@ alias gb="git branch"
 alias gf="git fetch"
 
 # aliases for dotfiles git bare repo
-alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias cfa='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME add'
-alias cfc='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME commit'
-alias cfp='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME push'
+alias cf="dotbare"
+alias cfc="dotbare commit"
+alias cfp="dotbare push"
+alias cs="dotbare fstat"
+alias ce="dotbare fedit"

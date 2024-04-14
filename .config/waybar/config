@@ -10,6 +10,7 @@
         "hyprland/window"
     ],
     "modules-right": [
+				"tray",
         "custom/pacman",
         "pulseaudio",
         "network",
@@ -34,7 +35,7 @@
 			"return-type": "json",
 			"exec": "pacman-updates",
 			"exec-if": "exit 0",
-			"on-click": "kitty -e 'paru'; pkill -SIGRTMIN+8 waybar",
+			"on-click": "kitty -e paru; pkill -SIGRTMIN+8 waybar",
 			"signal": 8
 		},
     "clock": {
@@ -43,19 +44,19 @@
     },
     "battery": {
         "states": {
-            "good": 76,
             "warning": 20
         },
         "format": "{icon}",
-        "format-charging": "󰂄",
-        "format-good": "󰁹",
         "format-icons": [ "󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹" ],
+        "format-charging": "󰂄",
+        "format-warning": "󰂃",
 				"tooltip-format": "{capacity}% capacity"
     },
     "network": {
         "format-wifi": "󰤨",
         "format-disconnected": "󰤭",
-				"tooltip-format": "Connected to {essid}"
+				"tooltip-format": "Connected to {essid}",
+				"on-click": "hyprctl dispatch exec '[float]' 'kitty -e nmtui'"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float

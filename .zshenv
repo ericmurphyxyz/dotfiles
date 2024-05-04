@@ -1,49 +1,34 @@
 # default apps
 export EDITOR="nvim"
-export TERMINAL="kitty"
+export VISUAL="nvim"
+export TERMINAL="foot"
 export BROWSER="firefox"
-#
-# Adds ~/.local/bin and subfolders to $PATH
-export PATH="$PATH:${$(find ~/.local/bin -maxdepth 1 -type d -printf %p:)%%:}"
 
-# cleaning up home folder
+# default folders
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_SCREENSHOTS_DIR="$HOME/Pictures/screenshots"
-export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 
-export HISTFILE="~/.bash_history"
-#export HISTFILE="${XDG_STATE_HOME}"/bash/history
-export ELECTRUMDIR="$XDG_DATA_HOME/electrum"
-export GNUPGHOME="$XDG_DATA_HOME"/gnupg
-export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
-export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
-export JULIA_DEPOT_PATH="$XDG_DATA_HOME/julia:$JULIA_DEPOT_PATH"
-export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
-export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
-export TERMINFO="$XDG_DATA_HOME"/terminfo
-export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:/usr/share/terminfo
-export WINEPREFIX="$XDG_DATA_HOME"/wine
-export NOTMUCH_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/notmuch-config"
+# adds ~/.local/bin and subfolders to $PATH
+export PATH="$PATH:${$(find ~/.local/bin -maxdepth 1 -type d -printf %p:)%%:}"
+
+# cleaning up the home folder
 export LESSHISTFILE="-"
-export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc"
-export MBSYNCRC="${XDG_CONFIG_HOME:-$HOME/.config}/mbsync/config"
-export PASSWORD_STORE_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/password-store"
-export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
-export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
-export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
-export N_PREFIX="$HOME/.local/bin/n"
-export ZDOTDIR="$HOME/.config/zsh"
-export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
-export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
-export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export ZSHZ_DATA="$XDG_CACHE_HOME/z/.z"
 
+# config options for dotbare (dotfile management tool)
+export DOTBARE_DIR="$HOME/.dotfiles"
+export DOTBARE_TREE="$HOME"
+
+# colors!
 export BAT_THEME="Catppuccin-mocha"
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 
-export WINIT_X11_SCALE_FACTOR=1.75 alacritty
+# set the localization
+export LC_ALL=en_US.UTF-8
 
 # lf icons
 export LF_ICONS="\
@@ -126,8 +111,7 @@ ex=:\
 *.rpm=:\
 *.jar=:\
 *.war=:\
-*.ear=:\
-*.sar=:\
+*.ear=:\ *.sar=:\
 *.rar=:\
 *.alz=:\
 *.ace=:\
@@ -208,5 +192,3 @@ ex=:\
 *.pdf=:\
 *.nix=:\
 "
-export LC_ALL=en_US.UTF-8
-

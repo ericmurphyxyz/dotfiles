@@ -1,10 +1,11 @@
-set previewer ~/.config/lf/lf_kitty_preview
-set cleaner ~/.config/lf/lf_kitty_clean
+set previewer ~/.config/lf/previewer
+#set cleaner ~/.config/lf/lf_kitty_clean
 
 # Basic Settings
 set hidden true
 set ignorecase true
 set icons true
+set sixel true
 
 # Custom Functions
 cmd mkdir ${{
@@ -40,7 +41,7 @@ cmd trash ${{
   while [ "$files" ]; do
     file=${files%%;*}
 
-    trash-put "$(basename "$file")"
+    trashy put "$(basename "$file")"
     if [ "$files" = "$file" ]; then
       files=''
     else
@@ -49,15 +50,37 @@ cmd trash ${{
   done
 }}
 
-cmd restore_trash ${{
-  trash-restore
+cmd open &{{
+	case $(file --mime-type -Lb $f) in
+		text/*) lf -remote "send $id \$nvim \$fx";;
+		*) xdg-open "$f"
+	esac
+}}
+
+cmd on-select &{{
+    lf -remote "send $id set statfmt \"$(exa -ld --color=always "$f")\""
+}}
+
+cmd fzf_find_file ${{
+	selected="$(fzf)"
+	lf -remote "send $id select \"$selected\""
+}}
+map <c-f> :fzf_find_file
+
+map am ${{
+	mntdir="${f}.mnt"
+  mkdir -p "$mntdir"
+  archivemount "$f" "$mntdir"
+  lf -remote "send $id cd $mntdir"
 }}
 
 # Bindings
+map c
 map d
 map m
 
-map c $vscodium "$f"
+map co $vscodium "$f"
+map cf $dotbare fadd -f
 
 map au unarchive
 map ae $wine "$f"
@@ -65,7 +88,9 @@ map ae $wine "$f"
 # Basic Functions
 map . set hidden!
 map dd trash
-map dr restore_trash
+map u $trashy restore -r 0
+map dr $trashy restore
+map de $trashy empty --all
 map p paste
 map x cut
 map y copy
@@ -77,11 +102,11 @@ map bg setwallpaper
 map C clear
 
 # Movement
-map gD cd ~/documents
-map gd cd ~/downloads
-map gp cd ~/pictures
 map gc cd ~/.config
-map gr cd ~/repos
-map gv cd ~/videos
+map gD cd ~/Documents
+map gd cd ~/Downloads
+map gp cd ~/Pictures
+map gr cd ~/Repos
+map gv cd ~/Videos
 map gs cd ~/.local/bin
 map gt cd ~/.local/share/Trash/files

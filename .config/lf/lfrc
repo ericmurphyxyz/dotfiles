@@ -1,11 +1,11 @@
 set previewer ~/.config/lf/previewer
-#set cleaner ~/.config/lf/lf_kitty_clean
 
 # Basic Settings
 set hidden true
 set ignorecase true
 set icons true
 set sixel true
+set rulerfmt "%d  |%a  |%p  |\033[7;31m %m \033[0m  |\033[7;33m %c \033[0m  |\033[7;35m %s \033[0m  |\033[7;34m %f \033[0m  |%i/%t"
 
 # Custom Functions
 cmd mkdir ${{
@@ -28,9 +28,11 @@ cmd setwallpaper ${{
 cmd unarchive ${{
   case "$f" in
       *.zip) unzip "$f" ;;
+      *.rar) unrar x "$f" ;;
       *.tar.gz) tar -xzvf "$f" ;;
       *.tar.bz2) tar -xjvf "$f" ;;
       *.tar) tar -xvf "$f" ;;
+      *.7z) 7z e "$f" ;;
       *) echo "Unsupported format" ;;
   esac
 }}
@@ -61,18 +63,39 @@ cmd on-select &{{
     lf -remote "send $id set statfmt \"$(exa -ld --color=always "$f")\""
 }}
 
-cmd fzf_find_file ${{
-	selected="$(fzf)"
-	lf -remote "send $id select \"$selected\""
+cmd fzf_jump ${{
+    res="$(find . -maxdepth 1 | fzf --reverse --header='Jump to location')"
+    if [ -n "$res" ]; then
+        if [ -d "$res" ]; then
+            cmd="cd"
+        else
+            cmd="select"
+        fi
+        res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+        lf -remote "send $id $cmd \"$res\""
+    fi
 }}
-map <c-f> :fzf_find_file
+map <c-f> :fzf_jump
 
-map am ${{
-	mntdir="${f}.mnt"
-  mkdir -p "$mntdir"
-  archivemount "$f" "$mntdir"
-  lf -remote "send $id cd $mntdir"
+cmd fzf_search ${{
+    RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+    res="$(
+        FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
+            fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+            --ansi --layout=reverse --header 'Search in files' \
+            | cut -d':' -f1 | sed 's/\\/\\\\/g;s/"/\\"/g'
+    )"
+    [ -n "$res" ] && lf -remote "send $id select \"$res\""
 }}
+map <c-g> :fzf_search
+
+cmd z-jump ${{
+  ZLUA_SCRIPT="$ZDOTDIR/plugins/z.lua/z.lua"
+  lf -remote "send ${id} cd \"$($ZLUA_SCRIPT -e $@ | sed 's/\\/\\\\/g;s/"/\\"/g')\""
+}}
+map Z push :z-jump<space>-I<space>
+map zb push :z-jump<space>-b<space>
+map zz push :z-jump<space>
 
 # Bindings
 map c
@@ -103,10 +126,10 @@ map C clear
 
 # Movement
 map gc cd ~/.config
-map gD cd ~/Documents
-map gd cd ~/Downloads
-map gp cd ~/Pictures
-map gr cd ~/Repos
-map gv cd ~/Videos
+map gD cd ~/documents
+map gd cd ~/downloads
+map gp cd ~/pictures
+map gr cd ~/repos
+map gv cd ~/videos
 map gs cd ~/.local/bin
 map gt cd ~/.local/share/Trash/files

@@ -2,9 +2,5 @@
 
 # Lock screen if not already locked and stop playing media
 
-if pgrep swaylock 2>/dev/null; then
-	exit 0
-fi
-
 playerctl pause
-swaylock -f
+pidof hyprlock || hyprlock

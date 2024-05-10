@@ -35,7 +35,7 @@
 			"return-type": "json",
 			"exec": "pacman-updates",
 			"exec-if": "exit 0",
-			"on-click": "kitty -e paru; pkill -SIGRTMIN+8 waybar",
+			"on-click": "$TERMINAL -e paru; pkill -SIGRTMIN+8 waybar",
 			"signal": 8
 		},
     "clock": {
@@ -56,7 +56,7 @@
         "format-wifi": "󰤨",
         "format-disconnected": "󰤭",
 				"tooltip-format": "Connected to {essid}",
-				"on-click": "hyprctl dispatch exec '[float]' 'kitty -e nmtui'"
+				"on-click": "hyprctl dispatch exec '[float]' '$TERMINAL -e nmtui'"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float

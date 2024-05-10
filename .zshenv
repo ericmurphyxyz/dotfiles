@@ -17,15 +17,11 @@ export PATH="$PATH:${$(find ~/.local/bin -maxdepth 1 -type d -printf %p:)%%:}"
 # cleaning up the home folder
 export LESSHISTFILE="-"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-export ZSHZ_DATA="$XDG_CACHE_HOME/z/.z"
-
-# config options for dotbare (dotfile management tool)
-export DOTBARE_DIR="$HOME/.dotfiles"
-export DOTBARE_TREE="$HOME"
+export _ZL_DATA="$XDG_CACHE_HOME/zsh/.zlua"
 
 # colors!
 export BAT_THEME="Catppuccin-mocha"
-export MANPAGER="less -R --use-color -Dd+r -Du+b"
+export MANPAGER="nvim +Man!"
 
 # set the localization
 export LC_ALL=en_US.UTF-8

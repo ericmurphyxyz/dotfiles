@@ -15,7 +15,7 @@ If you'd like a more in-depth list of all the software and hardware I use on a d
 - Operating System: [Arch Linux](https://archlinux.org/)
 - Window Manager: [Hyprland](https://github.com/hyprwm/Hyprland)
 - Status Bar: [Waybar](https://github.com/Alexays/Waybar)
-- Terminal: [kitty](https://github.com/kovidgoyal/kitty)
+- Terminal: [foot](https://codeberg.org/dnkl/foot)
 - Launcher: [tofi](https://github.com/philj56/tofi)
 - Browser: [Firefox (with BetterFox)](https://github.com/yokoffing/BetterFox)
 - File Manager: [lf](https://github.com/gokcehan/lf)
@@ -23,7 +23,8 @@ If you'd like a more in-depth list of all the software and hardware I use on a d
 - Image Viewer: [imv](https://sr.ht/~exec64/imv/)
 - Video Player: [mpv](https://github.com/mpv-player/mpv)
 - PDF/EPUB Viewer: [MuPDF](https://mupdf.com/)
-- Lockscreen: [swaylock-effects](https://github.com/jirutka/swaylock-effects)
+- Lockscreen: [hyprlock](https://github.com/hyprwm/hyprlock)
+- Idle daemon: [hypridle](https://github.com/hyprwm/hypridle)
 - Fonts: [Cantarell](https://gitlab.gnome.org/GNOME/cantarell-fonts) and [Maple Mono](https://github.com/subframe7536/maple-font)
 
 ## Where is everything?

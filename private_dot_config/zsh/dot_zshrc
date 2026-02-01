@@ -1,0 +1,122 @@
+# Enable Powerlevel10k instant prompt (must be at the top)
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Ensure cache directory exists
+ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+[[ -d "$ZSH_CACHE_DIR" ]] || mkdir -p "$ZSH_CACHE_DIR"
+
+# Source external files
+[[ -r ${ZDOTDIR:-$HOME}/.zaliases ]] && source ${ZDOTDIR:-$HOME}/.zaliases
+
+# ---------------------------------------------------------------------------
+# ZSH Options
+# ---------------------------------------------------------------------------
+
+# History
+HISTFILE="$ZSH_CACHE_DIR/history"
+HISTSIZE=50000
+SAVEHIST=50000
+
+setopt EXTENDED_HISTORY        # Write timestamp to history
+setopt HIST_EXPIRE_DUPS_FIRST  # Expire duplicates first
+setopt HIST_IGNORE_DUPS        # Don't record duplicate entries
+setopt HIST_IGNORE_SPACE       # Don't record entries starting with space
+setopt HIST_VERIFY             # Show command with history expansion before running
+setopt SHARE_HISTORY           # Share history between sessions
+setopt HIST_FIND_NO_DUPS       # Don't show duplicates when searching
+
+# Navigation
+setopt AUTO_CD                 # cd by typing directory name
+
+# Completion
+setopt ALWAYS_TO_END           # Move cursor to end after completion
+setopt AUTO_MENU               # Show completion menu on tab
+setopt COMPLETE_IN_WORD        # Complete from both ends of word
+setopt GLOB_COMPLETE           # Show menu for glob matches
+setopt LIST_PACKED             # Smaller completion lists
+
+# Misc
+setopt INTERACTIVE_COMMENTS    # Allow comments in interactive shell
+setopt MULTIOS                 # Enable multiple redirections
+
+# Change word selection to exclude slashes
+autoload -U select-word-style
+select-word-style bash
+
+# ---------------------------------------------------------------------------
+# Plugin Management
+# ---------------------------------------------------------------------------
+# Script by mattmc3 from https://github.com/mattmc3/zsh_unplugged
+# Basic plugin manager to automatically import plugins
+
+ZPLUGINDIR=${ZPLUGINDIR:-${ZDOTDIR:-$HOME/.config/zsh}/plugins}
+
+# Get zsh_unplugged and store it with the other plugins
+if [[ ! -d $ZPLUGINDIR/zsh_unplugged ]]; then
+  git clone --quiet https://github.com/mattmc3/zsh_unplugged $ZPLUGINDIR/zsh_unplugged
+fi
+source $ZPLUGINDIR/zsh_unplugged/zsh_unplugged.zsh
+
+repos=(
+  # Theming
+  romkatv/powerlevel10k
+  tolkonepiu/catppuccin-powerlevel10k-themes
+
+  # Defer loading of all subsequent plugins
+  romkatv/zsh-defer
+
+  jeffreytse/zsh-vi-mode
+  zsh-users/zsh-autosuggestions
+  zdharma-continuum/fast-syntax-highlighting
+  zsh-users/zsh-completions
+)
+plugin-load $repos
+
+# -----------------------------------------------------------------------------
+# Completion System
+# -----------------------------------------------------------------------------
+# Only run compinit once per day for speed
+# From https://gist.github.com/ctechols/ca1035271ad134841284
+
+autoload -Uz compinit
+ZCOMPDUMP="$ZSH_CACHE_DIR/zcompdump"
+
+if [[ -n $ZCOMPDUMP(#qN.mh+24) ]]; then
+  compinit -d "$ZCOMPDUMP"
+else
+  compinit -C -d "$ZCOMPDUMP"
+fi
+
+# Completion styling
+zstyle ':completion:*' menu select                        # Visual menu
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # Case insensitive
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"   # Use LS_COLORS
+zstyle ':completion:*' special-dirs true                  # Complete . and ..
+zstyle ':completion:*' squeeze-slashes true               # Normalize slashes
+
+# -----------------------------------------------------------------------------
+# External Tools
+# -----------------------------------------------------------------------------
+
+# Init fzf
+# zsh-vi-mode needs special handling to work with fzf
+function zvm_after_init() {
+  source <(fzf --zsh)
+}
+
+# Init zoxide for a better cd command
+eval "$(zoxide init zsh)"
+
+# -----------------------------------------------------------------------------
+# Prompt
+# -----------------------------------------------------------------------------
+
+# Set the theme
+zstyle ':catppuccin:p10k' 'theme' 'lean'
+zstyle ':catppuccin:p10k' 'flavour' 'mocha'
+
+# Load Powerlevel10k prompt last
+# To customize prompt, run `p10k configure`
+[[ -f ${ZDOTDIR:-$HOME}/.p10k.zsh ]] && source ${ZDOTDIR:-$HOME}/.p10k.zsh

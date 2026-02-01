@@ -1,0 +1,27 @@
+alias ..="cd .."
+
+alias p="paru"
+alias copy="wl-copy"
+alias c="clear"
+
+# Modern replacements
+command -v bat &>/dev/null && alias cat="bat"
+command -v eza &>/dev/null && alias ls="eza --icons" && alias ll="eza -lah --icons" && alias tree="eza --tree --icons"
+command -v rg &>/dev/null && alias grep="rg"
+command -v fd &>/dev/null && alias find="fd"
+
+# Git
+alias g="git"
+alias gst="git status"
+alias gc="git commit"
+alias ga="git add"
+alias gpl="git pull"
+alias gpu="git push"
+alias gch="git checkout"
+alias gac="git add . && git commit"
+alias gcl="git clone"
+alias gb="git branch"
+
+alias ni="npm install"
+alias nr="npm run"
+alias ns="npm start"

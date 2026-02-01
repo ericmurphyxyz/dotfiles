@@ -70,7 +70,6 @@ repos=(
   # Defer loading of all subsequent plugins
   romkatv/zsh-defer
 
-  jeffreytse/zsh-vi-mode
   zsh-users/zsh-autosuggestions
   zdharma-continuum/fast-syntax-highlighting
   zsh-users/zsh-completions
@@ -104,10 +103,7 @@ zstyle ':completion:*' squeeze-slashes true               # Normalize slashes
 # -----------------------------------------------------------------------------
 
 # Init fzf
-# zsh-vi-mode needs special handling to work with fzf
-function zvm_after_init() {
-  source <(fzf --zsh)
-}
+source <(fzf --zsh)
 
 # Init zoxide for a better cd command
 eval "$(zoxide init zsh)"

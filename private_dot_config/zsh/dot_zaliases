@@ -4,6 +4,10 @@ alias p="paru"
 alias copy="wl-copy"
 alias c="clear"
 
+alias cz="chezmoi"
+alias cza="chezmoi add"
+alias czc="chezmoi cd"
+
 # Modern replacements
 command -v bat &>/dev/null && alias cat="bat"
 command -v eza &>/dev/null && alias ls="eza --icons" && alias ll="eza -lah --icons" && alias tree="eza --tree --icons"
@@ -15,6 +19,7 @@ alias g="git"
 alias gst="git status"
 alias gc="git commit"
 alias ga="git add"
+alias gaa="git add ."
 alias gpl="git pull"
 alias gpu="git push"
 alias gch="git checkout"

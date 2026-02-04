@@ -1,0 +1,9 @@
+[Unit]
+Description=Desktop alert warning of low remaining battery
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/battery-alert
+
+[Install]
+WantedBy=graphical.target

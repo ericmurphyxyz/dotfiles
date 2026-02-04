@@ -26,9 +26,9 @@
 @define-color crust #11111b;
 
 * {
-    font-family: "IBM Plex Sans Text", "JetBrainsMono Nerd Font", sans-serif;
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
     font-weight: 700;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 window#waybar {
@@ -69,7 +69,7 @@ button {
 }
 
 #workspaces button {
-    padding: 0 3px;
+    padding: 0 6px;
     background-color: transparent;
     color: @white;
 }
@@ -96,32 +96,23 @@ button {
 
 #clock,
 #battery,
-#cpu,
-#memory,
-#disk,
-#temperature,
-#backlight,
 #network,
-#pulseaudio,
+#bluetooth,
 #wireplumber,
-#custom-media,
 #tray,
-#mode,
-#idle_inhibitor,
-#scratchpad,
-#power-profiles-daemon,
-#mpd,
-#custom-pacman {
+#custom-pacman,
+#custom-power {
     padding: 0 10px;
     color: @text;
 }
 
 #custom-pacman,
+#custom-power,
 #pulseaudio,
 #network,
+#bluetooth,
 #battery {
-    font-size: 13px;
-    margin-top: -2px;
+    font-size: 16px;
 }
 
 #window,
@@ -132,12 +123,6 @@ button {
 
 .modules-right {
     padding-right: 6px;
-}
-
-#battery {
-}
-
-#battery.charging, #battery.plugged {
 }
 
 #battery.warning:not(.charging) {
@@ -182,25 +167,6 @@ label:focus {
     background-color: #90b1b1;
 }
 
-#network {
-}
-
-#network.disconnected {
-    background-color: #f53c3c;
-}
-
-#pulseaudio {
-}
-
-#wireplumber {
-    background-color: #fff0f5;
-    color: #000000;
-}
-
-#wireplumber.muted {
-    background-color: #f53c3c;
-}
-
 #custom-media {
     background-color: #66cc99;
     color: #2a5c45;
@@ -217,10 +183,6 @@ label:focus {
 
 #temperature.critical {
     background-color: #eb4d4b;
-}
-
-#tray {
-    background-color: #2980b9;
 }
 
 #tray > .passive {

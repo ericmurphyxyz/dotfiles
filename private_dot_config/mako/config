@@ -1,0 +1,19 @@
+font=IBM Plex Sans Text 10
+text-color=#ebdbb2
+layer=overlay
+width=200
+max-icon-size=34
+
+background-color=#1e1e2e
+text-color=#cdd6f4
+border-color=#cba6f7
+progress-color=over #313244
+border-size=2
+
+ignore-timeout=0
+default-timeout=5000
+margin=20
+padding=6
+
+[urgency=high]
+border-color=#fab387

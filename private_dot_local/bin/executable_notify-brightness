@@ -1,0 +1,50 @@
+#!/bin/sh
+# Adjust laptop screen brightness with natural scaling and send a notification
+# Usage: notify-brightness up|down
+
+# Configuration
+MIN_BRIGHTNESS=30
+ICON_PATH="$HOME/.local/share/icons"
+ICON_BRIGHTNESS="brightness.svg"
+
+# Get current brightness percentage
+get_brightness() {
+	brightnessctl -e4 -m | awk -F, '{print substr($4, 0, length($4)-1)}'
+}
+
+# Handle brightness changes
+case $1 in
+	up)
+		brightnessctl -e4 set 5%+
+		;;
+	down)
+		# Only apply minimum if MIN_BRIGHTNESS > 0
+		if [ "$MIN_BRIGHTNESS" -gt 0 ]; then
+			current=$(get_brightness)
+			if [ "$current" -gt "$MIN_BRIGHTNESS" ]; then
+				brightnessctl -e4 set 5%-
+				# Restore to minimum if we dropped below
+				new=$(get_brightness)
+				if [ "$new" -lt "$MIN_BRIGHTNESS" ]; then
+					brightnessctl -e4 set "${MIN_BRIGHTNESS}%"
+				fi
+			fi
+		else
+			# No minimum protection
+			brightnessctl -e4 set 5%-
+		fi
+		;;
+	*)
+		echo "Usage: notify-brightness up|down"
+		exit 1
+		;;
+esac
+
+# Get current brightness and send notification
+brightness=$(get_brightness)
+notify-send -t 1000 \
+	-a 'brightness-notify' \
+	-i "$ICON_PATH/$ICON_BRIGHTNESS" \
+	-h string:x-canonical-private-synchronous:brightness \
+	-h int:value:"$brightness" \
+	"${brightness}%"

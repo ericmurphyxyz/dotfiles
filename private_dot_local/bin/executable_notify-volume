@@ -1,0 +1,61 @@
+#!/bin/sh
+
+# Increment, decrement, or mute the volume using Pipewire and send a notification
+# Usage: notify-volume up|down|mute
+
+# Configuration
+ICON_PATH="$HOME/.local/share/icons"
+ICON_NORMAL="volume.svg"
+ICON_MUTED="mute.svg"
+DEFAULT_SINK="@DEFAULT_AUDIO_SINK@"
+
+case $1 in
+	up)
+		wpctl set-mute "$DEFAULT_SINK" 0
+		wpctl set-volume -l 1.5 "$DEFAULT_SINK" 5%+
+		;;
+	down)
+		wpctl set-mute "$DEFAULT_SINK" 0
+		wpctl set-volume -l 1.5 "$DEFAULT_SINK" 5%-
+		;;
+	mute)
+		wpctl set-mute "$DEFAULT_SINK" toggle
+		;;
+	*)
+		echo "Usage: notify-volume up|down|mute"
+		exit 1
+		;;
+esac
+
+# Get current volume level as percentage
+volume=$(wpctl get-volume "$DEFAULT_SINK" | awk '{print int($2 * 100)}')
+
+send_notification() {
+	if [ "$1" = "mute" ]; then
+		text="Muted"
+		icon="$ICON_PATH/$ICON_MUTED"
+	else
+		text="${volume}%"
+		icon="$ICON_PATH/$ICON_NORMAL"
+	fi
+
+	notify-send -t 1000 \
+		-a "notify-volume" \
+		-i "$icon" \
+		-h string:x-canonical-private-synchronous:volume \
+		-h int:value:"$volume" \
+		"$text"
+}
+
+case $1 in
+	mute)
+		case "$(wpctl get-volume @DEFAULT_AUDIO_SINK@)" in
+			*MUTED* ) send_notification mute;;
+			*       ) send_notification;;
+		esac
+		;;
+	*)
+		send_notification
+		;;
+esac
+

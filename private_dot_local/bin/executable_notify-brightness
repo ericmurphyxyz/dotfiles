@@ -47,4 +47,5 @@ notify-send -t 1000 \
 	-i "$ICON_PATH/$ICON_BRIGHTNESS" \
 	-h string:x-canonical-private-synchronous:brightness \
 	-h int:value:"$brightness" \
-	"${brightness}%"
+	"Backlight" \
+	"Currently at ${brightness}%"

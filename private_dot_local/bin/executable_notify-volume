@@ -32,10 +32,10 @@ volume=$(wpctl get-volume "$DEFAULT_SINK" | awk '{print int($2 * 100)}')
 
 send_notification() {
 	if [ "$1" = "mute" ]; then
-		text="Muted"
+		text="Currently muted"
 		icon="$ICON_PATH/$ICON_MUTED"
 	else
-		text="${volume}%"
+		text="Currently at ${volume}%"
 		icon="$ICON_PATH/$ICON_NORMAL"
 	fi
 
@@ -44,6 +44,7 @@ send_notification() {
 		-i "$icon" \
 		-h string:x-canonical-private-synchronous:volume \
 		-h int:value:"$volume" \
+		"Volume" \
 		"$text"
 }
 

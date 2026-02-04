@@ -1,37 +1,42 @@
 #!/bin/sh
-
 # Send a notification if the laptop battery is low or critical.
 # Set on a systemd timer (~/.config/systemd/user/battery-alert.timer).
 
-# These need to be set for notifications to work from systemd
+# Required for notifications to work from systemd
 export DISPLAY=:0
 export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
 
-# Battery percentage at which to notify
+# Configuration
 WARNING_LEVEL=20
 CRITICAL_LEVEL=5
+ICON_PATH="$HOME/.local/share/icons"
+ICON_BATTERY="battery.svg"
+BATTERY_PATH="/org/freedesktop/UPower/devices/battery_BAT0"
+
+# State files to prevent duplicate notifications
+EMPTY_FILE="/tmp/batteryempty"
+CRITICAL_FILE="/tmp/batterycritical"
 
 # Get battery info from upower
-BATTERY_INFO=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0)
-BATTERY_LEVEL=$(echo "$BATTERY_INFO" | grep -E "percentage" | awk '{print $2}' | tr -d '%')
-BATTERY_STATE=$(echo "$BATTERY_INFO" | grep -E "state" | awk '{print $2}')
-
-# Use files to store whether we've shown a notification or not (to prevent multiple notifications)
-EMPTY_FILE=/tmp/batteryempty
-CRITICAL_FILE=/tmp/batterycritical
+battery_info=$(upower -i "$BATTERY_PATH")
+battery_level=$(echo "$battery_info" | grep -E "percentage" | awk '{print $2}' | tr -d '%')
+battery_state=$(echo "$battery_info" | grep -E "state" | awk '{print $2}')
 
 # Reset notifications when the computer starts charging
-if [ "$BATTERY_STATE" = "charging" ] || [ "$BATTERY_STATE" = "fully-charged" ]; then
-	[ -f $EMPTY_FILE ] && rm $EMPTY_FILE
-	[ -f $CRITICAL_FILE ] && rm $CRITICAL_FILE
+if [ "$battery_state" = "charging" ] || [ "$battery_state" = "fully-charged" ]; then
+	[ -f "$EMPTY_FILE" ] && rm "$EMPTY_FILE"
+	[ -f "$CRITICAL_FILE" ] && rm "$CRITICAL_FILE"
 fi
 
-# If the battery is low and is discharging (and has not shown notification yet)
-if [ "$BATTERY_LEVEL" -le $WARNING_LEVEL ] && [ "$BATTERY_STATE" = "discharging" ] && [ ! -f $EMPTY_FILE ]; then
-	notify-send "Low Battery" "${BATTERY_LEVEL}% of battery remaining." -u critical -i "battery-alert"
-	touch $EMPTY_FILE
-# If the battery is critical and is discharging (and has not shown notification yet)
-elif [ "$BATTERY_LEVEL" -le $CRITICAL_LEVEL ] && [ "$BATTERY_STATE" = "discharging" ] && [ ! -f $CRITICAL_FILE ]; then
-	notify-send "Battery Critical" "The computer will shutdown soon." -u critical -i "battery-alert"
-	touch $CRITICAL_FILE
+# Send notifications based on battery level
+if [ "$battery_level" -le "$WARNING_LEVEL" ] && [ "$battery_state" = "discharging" ] && [ ! -f "$EMPTY_FILE" ]; then
+	notify-send -i "$ICON_PATH/$ICON_BATTERY" \
+		"Low Battery" \
+		"${battery_level}% of battery remaining"
+	touch "$EMPTY_FILE"
+elif [ "$battery_level" -le "$CRITICAL_LEVEL" ] && [ "$battery_state" = "discharging" ] && [ ! -f "$CRITICAL_FILE" ]; then
+	notify-send -i "$ICON_PATH/$ICON_BATTERY" \	
+		"Battery Critical" \
+		"The computer will shutdown soon"
+	touch "$CRITICAL_FILE"
 fi

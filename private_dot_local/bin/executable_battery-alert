@@ -30,12 +30,14 @@ fi
 
 # Send notifications based on battery level
 if [ "$battery_level" -le "$WARNING_LEVEL" ] && [ "$battery_state" = "discharging" ] && [ ! -f "$EMPTY_FILE" ]; then
-	notify-send -i "$ICON_PATH/$ICON_BATTERY" \
+	notify-send -t 0 \
+		-i "$ICON_PATH/$ICON_BATTERY" \
 		"Low Battery" \
 		"${battery_level}% of battery remaining"
 	touch "$EMPTY_FILE"
 elif [ "$battery_level" -le "$CRITICAL_LEVEL" ] && [ "$battery_state" = "discharging" ] && [ ! -f "$CRITICAL_FILE" ]; then
-	notify-send -i "$ICON_PATH/$ICON_BATTERY" \	
+	notify-send -t 0 \ 
+		-i "$ICON_PATH/$ICON_BATTERY" \	
 		"Battery Critical" \
 		"The computer will shutdown soon"
 	touch "$CRITICAL_FILE"

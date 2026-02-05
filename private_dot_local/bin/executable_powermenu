@@ -1,0 +1,20 @@
+#!/bin/sh
+
+SELECTION="$(printf "󰌾  Lock
+󰤄  Suspend
+󰍃  Log out
+󰜉  Reboot
+󰐥  Shutdown" | fuzzel --dmenu -l 5)"
+
+case $SELECTION in
+	*"󰌾  Lock")
+		swaylock;;
+	*"󰤄  Suspend")
+		systemctl suspend;;
+	*"󰍃  Log out")
+		niri msg action quit --skip-confirmation;;
+	*"󰜉  Reboot")
+		systemctl reboot;;
+	*"󰐥  Shutdown")
+		systemctl poweroff;;
+esac

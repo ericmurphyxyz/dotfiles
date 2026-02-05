@@ -10,24 +10,18 @@
 prefer-no-csd
 input {
     keyboard {
+	repeat-rate 35
+	repeat-delay 200
+
         xkb {
-            // You can set rules, model, layout, variant and options.
-            // For more information, see xkeyboard-config(7).
-
-            // For example:
-            // layout "us,ru"
-            // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
-
-            // If this section is empty, niri will fetch xkb settings
-            // from org.freedesktop.locale1. You can control these using
-            // localectl set-x11-keymap.
+	    options "caps:escape"
         }
 
-        // Enable numlock on startup, omitting this setting disables it.
         numlock
     }
 
     // Next sections include libinput settings.
+        // Enable numlock on startup, omitting this setting disables it.
     // Omitting settings disables them, or leaves them at their default values.
     // All commented-out settings here are examples, not defaults.
     touchpad {
@@ -77,7 +71,7 @@ input {
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Outputs
 // Remember to uncomment the node by removing "/-"!
-/-output "eDP-1" {
+output "eDP-1" {
     // Uncomment this line to disable this output.
     // off
 
@@ -90,7 +84,7 @@ input {
     mode "1920x1080@120.030"
 
     // You can use integer or fractional scale, for example use 1.5 for 150% scale.
-    scale 2
+    scale 1
 
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
@@ -113,7 +107,8 @@ input {
 // https://yalter.github.io/niri/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
-    gaps 16
+    gaps 8
+    background-color "#11111b"
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -157,98 +152,12 @@ layout {
 
     // You can change how the focus ring looks.
     focus-ring {
-        // Uncomment this line to disable the focus ring.
-        // off
-
-        // How many logical pixels the ring extends out from the windows.
-        width 4
-
-        // Colors can be set in a variety of ways:
-        // - CSS named colors: "red"
-        // - RGB hex: "#rgb", "#rgba", "#rrggbb", "#rrggbbaa"
-        // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
-
-        // Color of the ring on the active monitor.
-        active-color "#7fc8ff"
-
-        // Color of the ring on inactive monitors.
-        //
-        // The focus ring only draws around the active window, so the only place
-        // where you can see its inactive-color is on other monitors.
-        inactive-color "#505050"
-
-        // You can also use gradients. They take precedence over solid colors.
-        // Gradients are rendered the same as CSS linear-gradient(angle, from, to).
-        // The angle is the same as in linear-gradient, and is optional,
-        // defaulting to 180 (top-to-bottom gradient).
-        // You can use any CSS linear-gradient tool on the web to set these up.
-        // Changing the color space is also supported, check the wiki for more info.
-        //
-        // active-gradient from="#80c8ff" to="#c7ff7f" angle=45
-
-        // You can also color the gradient relative to the entire view
-        // of the workspace, rather than relative to just the window itself.
-        // To do that, set relative-to="workspace-view".
-        //
-        // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+        width 2
+        active-color "#89b4fa"
     }
 
-    // You can also add a border. It's similar to the focus ring, but always visible.
     border {
-        // The settings are the same as for the focus ring.
-        // If you enable the border, you probably want to disable the focus ring.
         off
-
-        width 4
-        active-color "#ffc87f"
-        inactive-color "#505050"
-
-        // Color of the border around windows that request your attention.
-        urgent-color "#9b0000"
-
-        // Gradients can use a few different interpolation color spaces.
-        // For example, this is a pastel rainbow gradient via in="oklch longer hue".
-        //
-        // active-gradient from="#e5989b" to="#ffb4a2" angle=45 relative-to="workspace-view" in="oklch longer hue"
-
-        // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
-    }
-
-    // You can enable drop shadows for windows.
-    shadow {
-        // Uncomment the next line to enable shadows.
-        // on
-
-        // By default, the shadow draws only around its window, and not behind it.
-        // Uncomment this setting to make the shadow draw behind its window.
-        //
-        // Note that niri has no way of knowing about the CSD window corner
-        // radius. It has to assume that windows have square corners, leading to
-        // shadow artifacts inside the CSD rounded corners. This setting fixes
-        // those artifacts.
-        //
-        // However, instead you may want to set prefer-no-csd and/or
-        // geometry-corner-radius. Then, niri will know the corner radius and
-        // draw the shadow correctly, without having to draw it behind the
-        // window. These will also remove client-side shadows if the window
-        // draws any.
-        //
-        // draw-behind-window true
-
-        // You can change how shadows look. The values below are in logical
-        // pixels and match the CSS box-shadow properties.
-
-        // Softness controls the shadow blur radius.
-        softness 30
-
-        // Spread expands the shadow.
-        spread 5
-
-        // Offset moves the shadow relative to the window.
-        offset x=0 y=5
-
-        // You can also change the shadow color and opacity.
-        color "#0007"
     }
 
     // Struts shrink the area occupied by windows, similarly to layer-shell panels.
@@ -264,6 +173,11 @@ layout {
     }
 }
 
+overview {
+    backdrop-color "#11111b"
+}
+
+
 // Add lines like this to spawn processes at startup.
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
@@ -271,13 +185,21 @@ layout {
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "waybar"
+spawn-at-startup "mako" // Notification daemon
+spawn-sh-at-startup "wbg $HOME/.local/share/wallpaper.png" // Wallpaper
+
+spawn-sh-at-startup "wl-clip-persist --clipboard regular" // Save clipboard after window close
+spawn-sh-at-startup "wl-paste --watch cliphist store" // Clipboard manager
+
+// Start xdg-desktop-portal-wlr for screen sharing support
+spawn-at-startup "xdg-desktop-portal-wlr"
+spawn-at-startup "xdg-desktop-portal-gtk"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 
 hotkey-overlay {
-    // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
-    // skip-at-startup
+    skip-at-startup
 }
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
@@ -294,17 +216,6 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 // You can also set this to null to disable saving screenshots to disk.
 // screenshot-path null
-
-// Animation settings.
-// The wiki explains how to configure individual animations:
-// https://yalter.github.io/niri/Configuration:-Animations
-animations {
-    // Uncomment to turn off all animations.
-    // off
-
-    // Slow down all animations by this factor. Values below 1 speed them up instead.
-    // slowdown 3.0
-}
 
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
@@ -341,13 +252,6 @@ window-rule {
     // block-out-from "screencast"
 }
 
-// Example: enable rounded corners for all windows.
-// (This example rule is commented out with a "/-" in front.)
-/-window-rule {
-    geometry-corner-radius 12
-    clip-to-geometry true
-}
-
 binds {
     // Keys consist of modifiers separated by + signs, followed by an XKB key name
     // in the end. To find an XKB name for a particular key, you may use a program
@@ -361,27 +265,31 @@ binds {
 
     // Mod-Shift-/, which is usually the same as Mod-?,
     // shows a list of important hotkeys.
-    Mod+Shift+Slash { show-hotkey-overlay; }
+    Mod+F1 { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+RETURN hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
-    Mod+W hotkey-overlay-title="Open a Browser: brave" { spawn "brave"; }
-    Mod+SHIFT+W hotkey-overlay-title="Open a Browser: firefox" { spawn "firefox"; }
-    Mod+Space hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
+    Mod+RETURN hotkey-overlay-title="Open Terminal" { spawn-sh "$TERM"; }
+    Mod+W hotkey-overlay-title="Open Browser" { spawn-sh "$BROWSER"; }
+    Mod+SHIFT+W hotkey-overlay-title="Open Alternate Browser" { spawn-sh "$BROWSER_ALT"; }
+    Mod+Space hotkey-overlay-title="Run Application" { spawn "fuzzel"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
-    // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
-    // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
-    // For example, this is a standard bind to toggle the screen reader (orca).
-    Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
+    Mod+E hotkey-overlay-title="Open File Manager" { spawn-sh "$TERM yazi"; }
+    Mod+X hotkey-overlay-title="Open Power Menu" { spawn "powermenu"; }
+
+    Mod+B hotkey-overlay-title="Open Wifi Menu" { spawn "iwmenu" "-l" "fuzzel" "-s" "2"; }
+    Mod+SHIFT+B hotkey-overlay-title="Open Bluetooth Menu" { spawn "bzmenu" "-l" "fuzzel" "-s" "2"; }
+    Mod+CTRL+B hotkey-overlay-title="Open PipeWire Menu" { spawn "pwmenu" "-l" "fuzzel" "-s" "2"; }
+
+    Mod+V hotkey-overlay-title="Open Clipboard Manager" { spawn-sh "cliphist list | fuzzel --dmenu --width 50 --with-nth 2 | cliphist decode | wl-copy"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
     // Using spawn-sh allows to pass multiple arguments together with the command.
     // "-l 1.0" limits the volume to 100%.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
-    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "notify-volume" "up"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "notify-volume" "down"; }
+    XF86AudioMute        allow-when-locked=true { spawn "notify-volume" "mute"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
     // Example media keys mapping using playerctl.
@@ -394,8 +302,8 @@ binds {
     // Example brightness key mappings for brightnessctl.
     // You can use regular spawn with multiple arguments too (to avoid going through "sh"),
     // but you need to manually put each argument in separate "" quotes.
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "notify-brightness" "up"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "notify-brightness" "down"; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
@@ -541,7 +449,7 @@ binds {
     // Mod+Ctrl+1 { move-window-to-workspace 1; }
 
     // Switches focus between the current and the previous workspace.
-    // Mod+Tab { focus-workspace-previous; }
+    Mod+Tab { focus-workspace-previous; }
 
     // The following binds move the focused window in and out of a column.
     // If the window is alone, they will consume it into the nearby column to the side.
@@ -587,8 +495,8 @@ binds {
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+V       { toggle-window-floating; }
-    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    Mod+N       { toggle-window-floating; }
+    Mod+Shift+N { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.
     // Windows in this column will appear as vertical tabs,

@@ -1,25 +1,39 @@
 #!/bin/sh
-
 # Increment, decrement, or mute the volume using Pipewire and send a notification
 # Usage: notify-volume up|down|mute
 
 # Configuration
-ICON_PATH="$HOME/.local/share/icons"
+ICON_PATH="${XDG_DATA_HOME:-$HOME/.local/share}/icons"
 ICON_NORMAL="volume.svg"
 ICON_MUTED="mute.svg"
+SOUND_FILE="${XDG_DATA_HOME:-$HOME/.local/share}/sounds/audio-volume-change.oga"
 DEFAULT_SINK="@DEFAULT_AUDIO_SINK@"
 
+# Play sound effect
+play_sound() {
+	paplay "$SOUND_FILE" &
+}
+
+# Handle volume changes
 case $1 in
 	up)
+		old_volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2}')
 		wpctl set-mute "$DEFAULT_SINK" 0
-		wpctl set-volume -l 1.5 "$DEFAULT_SINK" 5%+
+		wpctl set-volume -l 1.1 "$DEFAULT_SINK" 5%+
+		new_volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2}')
+		[ "$old_volume" != "$new_volume" ] && play_sound
 		;;
 	down)
 		wpctl set-mute "$DEFAULT_SINK" 0
-		wpctl set-volume -l 1.5 "$DEFAULT_SINK" 5%-
+		wpctl set-volume -l 1.1 "$DEFAULT_SINK" 5%-
+		play_sound
 		;;
 	mute)
+		old_state=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
 		wpctl set-mute "$DEFAULT_SINK" toggle
+		case "$old_state" in
+			*MUTED*) play_sound ;;
+		esac
 		;;
 	*)
 		echo "Usage: notify-volume up|down|mute"
@@ -30,8 +44,11 @@ esac
 # Get current volume level as percentage
 volume=$(wpctl get-volume "$DEFAULT_SINK" | awk '{print int($2 * 100)}')
 
+# Send notification with appropriate icon
 send_notification() {
-	if [ "$1" = "mute" ]; then
+	is_muted=$1
+
+	if [ "$is_muted" = "mute" ]; then
 		text="Currently muted"
 		icon="$ICON_PATH/$ICON_MUTED"
 	else
@@ -39,8 +56,8 @@ send_notification() {
 		icon="$ICON_PATH/$ICON_NORMAL"
 	fi
 
-	notify-send -t 1000 \
-		-a "notify-volume" \
+	notify-send -t 2000 \
+		-a 'notify-volume' \
 		-i "$icon" \
 		-h string:x-canonical-private-synchronous:volume \
 		-h int:value:"$volume" \
@@ -48,15 +65,15 @@ send_notification() {
 		"$text"
 }
 
+# Determine if muted and send appropriate notification
 case $1 in
 	mute)
-		case "$(wpctl get-volume @DEFAULT_AUDIO_SINK@)" in
-			*MUTED* ) send_notification mute;;
-			*       ) send_notification;;
+		case "$(wpctl get-volume "$DEFAULT_SINK")" in
+			*MUTED*) send_notification mute ;;
+			*)       send_notification ;;
 		esac
 		;;
 	*)
 		send_notification
 		;;
 esac
-

@@ -1,0 +1,6 @@
+brave-bin
+waybar-updates
+iwmenu-git
+bzmenu-git
+pwmenu-git
+vscodium-bin

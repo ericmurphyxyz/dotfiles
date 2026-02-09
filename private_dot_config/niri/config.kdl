@@ -81,7 +81,7 @@ output "eDP-1" {
     // for the resolution.
     // If the mode is omitted altogether or is invalid, niri will pick one automatically.
     // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
-    mode "1920x1080@120.030"
+    // mode "1920x1200@120.030"
 
     // You can use integer or fractional scale, for example use 1.5 for 150% scale.
     scale 1
@@ -186,7 +186,7 @@ overview {
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "waybar"
 spawn-at-startup "mako" // Notification daemon
-spawn-sh-at-startup "wbg $HOME/.local/share/wallpaper.png" // Wallpaper
+spawn-sh-at-startup "wbg -s $HOME/.local/share/wallpaper.png" // Wallpaper
 
 spawn-sh-at-startup "wl-clip-persist --clipboard regular" // Save clipboard after window close
 spawn-sh-at-startup "wl-paste --watch cliphist store" // Clipboard manager

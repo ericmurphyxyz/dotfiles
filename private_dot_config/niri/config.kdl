@@ -195,6 +195,10 @@ spawn-sh-at-startup "wl-paste --watch cliphist store" // Clipboard manager
 spawn-at-startup "xdg-desktop-portal-wlr"
 spawn-at-startup "xdg-desktop-portal-gtk"
 
+// Start swayidle
+spawn-sh-at-startup "swayidle -w timeout 600 'niri msg action power-off-monitors' timeout 1800 'systemctl suspend'"
+spawn-at-startup "sway-audio-idle-inhibit"
+
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 

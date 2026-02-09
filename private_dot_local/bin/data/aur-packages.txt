@@ -6,3 +6,4 @@ pwmenu-git
 vscodium-bin
 wbg
 fnm
+sway-audio-idle-inhibit-git

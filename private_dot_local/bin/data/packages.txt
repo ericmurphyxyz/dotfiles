@@ -33,3 +33,4 @@ noto-fonts
 bluez
 waybar
 brightnessctl
+swayidle

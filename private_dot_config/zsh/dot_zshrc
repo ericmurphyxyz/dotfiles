@@ -102,6 +102,9 @@ zstyle ':completion:*' squeeze-slashes true               # Normalize slashes
 # External Tools
 # -----------------------------------------------------------------------------
 
+# Init fnm (better nvm)
+eval "$(fnm env --use-on-cd --shell zsh)"
+
 # Init fzf
 source <(fzf --zsh)
 

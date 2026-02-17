@@ -3,7 +3,7 @@ Description=Check battery status every few minutes to warn the user in case of l
 
 [Timer]
 OnBootSec=1m
-OnUnitActiveSec=5m
+OnUnitActiveSec=2m
 
 [Install]
 WantedBy=timers.target

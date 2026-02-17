@@ -55,7 +55,7 @@
         "format": "{icon}",
         "format-full": "{icon}",
         "format-charging": "󱐋",
-        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
         "tooltip-format-charging": "{capacity}% full",
         "tooltip-format-full": "{capacity}% full",
         "tooltip-format-discharging": "{capacity}% full"

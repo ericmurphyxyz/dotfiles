@@ -71,7 +71,7 @@ button {
 #workspaces button {
     padding: 0 6px;
     background-color: transparent;
-    color: @white;
+    color: @overlay0;
 }
 
 #workspaces button:hover {
@@ -82,7 +82,7 @@ button {
 }
 
 #workspaces button.focused {
-    color: @mauve;
+    color: @text;
 }
 
 #workspaces button.urgent {

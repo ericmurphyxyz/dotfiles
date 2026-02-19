@@ -34,3 +34,8 @@ bluez
 waybar
 brightnessctl
 swayidle
+7zip
+gvfs
+glib2
+gvfs-mtp
+gvfs-smb

@@ -102,12 +102,18 @@ output "eDP-1" {
     position x=1280 y=0
 }
 
+output "HDMI-A-1" {
+    scale 2.5
+}
+
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Layout
 layout {
+    always-center-single-column
+
     // Set gaps around windows in logical pixels.
-    gaps 8
+    gaps 0
     background-color "#11111b"
 
     // When to center a column when changing focus, options are:
@@ -166,10 +172,10 @@ layout {
     // Top and bottom struts will simply add outer gaps in addition to the area occupied by
     // layer-shell panels and regular gaps.
     struts {
-        // left 64
-        // right 64
-        // top 64
-        // bottom 64
+        left 2
+        right 2
+        top 2
+        bottom 2
     }
 }
 
@@ -228,6 +234,16 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 // Work around WezTerm's initial configure bug
 // by setting an empty default-column-width.
 window-rule {
+    match app-id="firefox"
+    open-maximized true
+}
+
+window-rule {
+    match title="Brave"
+    open-maximized true
+}
+
+window-rule {
     // This regular expression is intentionally made as specific as possible,
     // since this is the default config, and we want no false positives.
     // You can get away with just app-id="wezterm" if you want.
@@ -280,12 +296,14 @@ binds {
 
     Mod+E hotkey-overlay-title="Open File Manager" { spawn-sh "$TERM yazi"; }
     Mod+X hotkey-overlay-title="Open Power Menu" { spawn "powermenu"; }
+    Mod+SHIFT+X hotkey-overlay-title="Open Lockscreen" { spawn "swaylock"; }
 
     Mod+B hotkey-overlay-title="Open Wifi Menu" { spawn "iwmenu" "-l" "fuzzel" "-s" "2"; }
     Mod+SHIFT+B hotkey-overlay-title="Open Bluetooth Menu" { spawn "bzmenu" "-l" "fuzzel" "-s" "2"; }
     Mod+CTRL+B hotkey-overlay-title="Open PipeWire Menu" { spawn "pwmenu" "-l" "fuzzel" "-s" "2"; }
 
     Mod+V hotkey-overlay-title="Open Clipboard Manager" { spawn-sh "cliphist list | fuzzel --dmenu --width 50 --with-nth 2 | cliphist decode | wl-copy"; }
+    Mod+P { spawn-sh "playerctl play-pause"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.

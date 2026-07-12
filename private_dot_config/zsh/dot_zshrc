@@ -66,6 +66,7 @@ repos=(
   # Theming
   romkatv/powerlevel10k
   tolkonepiu/catppuccin-powerlevel10k-themes
+  Aloxaf/fzf-tab
 
   # Defer loading of all subsequent plugins
   romkatv/zsh-defer
@@ -92,11 +93,13 @@ else
 fi
 
 # Completion styling
-zstyle ':completion:*' menu select                        # Visual menu
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # Case insensitive
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"   # Use LS_COLORS
 zstyle ':completion:*' special-dirs true                  # Complete . and ..
 zstyle ':completion:*' squeeze-slashes true               # Normalize slashes
+zstyle ':completion:*' menu no                            # Use fzf-tab's menu
+zstyle ':completion:*:descriptions' format '[%d]'         # Enables group headers
+zstyle ':fzf-tab:*' use-fzf-default-opts yes              # Colorize fzf
 
 # -----------------------------------------------------------------------------
 # External Tools
@@ -110,6 +113,24 @@ source <(fzf --zsh)
 
 # Init zoxide for a better cd command
 eval "$(zoxide init zsh)"
+
+# Change current working directory when exiting yazi by starting it with y
+function y() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  command yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+  command rm -f -- "$tmp"
+}
+
+# Fuzzy find all config files and open and edit with chezmoi
+cz() {
+  local file
+  file=$(chezmoi list --path-style absolute --include=files 2>/dev/null | \
+    command grep -Eiv '\.(jpe?g|png|oga)$' | \
+    fzf --preview 'chezmoi cat {} | bat --color=always -p --file-name {}')
+  [[ -n "$file" ]] && chezmoi edit --apply -- "$file"
+}
 
 # -----------------------------------------------------------------------------
 # Prompt

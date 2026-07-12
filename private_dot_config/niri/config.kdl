@@ -260,6 +260,16 @@ window-rule {
     open-floating true
 }
 
+window-rule {
+    match app-id=r#"imv$"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"zathura$"#
+    open-floating true
+}
+
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
 /-window-rule {
@@ -292,15 +302,17 @@ binds {
     Mod+W hotkey-overlay-title="Open Browser" { spawn-sh "$BROWSER"; }
     Mod+SHIFT+W hotkey-overlay-title="Open Alternate Browser" { spawn-sh "$BROWSER_ALT"; }
     Mod+Space hotkey-overlay-title="Run Application" { spawn "fuzzel"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "lock"; }
 
     Mod+E hotkey-overlay-title="Open File Manager" { spawn-sh "$TERM yazi"; }
     Mod+X hotkey-overlay-title="Open Power Menu" { spawn "powermenu"; }
-    Mod+SHIFT+X hotkey-overlay-title="Open Lockscreen" { spawn "swaylock"; }
+    Mod+SHIFT+X hotkey-overlay-title="Open Lockscreen" { spawn "lock"; }
 
     Mod+B hotkey-overlay-title="Open Wifi Menu" { spawn "iwmenu" "-l" "fuzzel" "-s" "2"; }
     Mod+SHIFT+B hotkey-overlay-title="Open Bluetooth Menu" { spawn "bzmenu" "-l" "fuzzel" "-s" "2"; }
     Mod+CTRL+B hotkey-overlay-title="Open PipeWire Menu" { spawn "pwmenu" "-l" "fuzzel" "-s" "2"; }
+    Mod+G hotkey-overlay-title="Open Password Menu" { spawn "fuzzel-gopass"; }
+    Mod+SHIFT+G hotkey-overlay-title="Open Password Menu" { spawn "fuzzel-gopass" "-c"; }
 
     Mod+V hotkey-overlay-title="Open Clipboard Manager" { spawn-sh "cliphist list | fuzzel --dmenu --width 50 --with-nth 2 | cliphist decode | wl-copy"; }
     Mod+P { spawn-sh "playerctl play-pause"; }
@@ -554,4 +566,11 @@ binds {
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
+}
+
+// Turn off top-left corner overview toggle
+gestures {
+    hot-corners {
+        off
+    }
 }

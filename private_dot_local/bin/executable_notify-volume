@@ -14,18 +14,27 @@ play_sound() {
 	paplay "$SOUND_FILE" &
 }
 
+# Round volume to the nearest 5%
+snap_volume() {
+    current=$(wpctl get-volume "$DEFAULT_SINK" | awk '{print int($2 * 100)}')
+    snapped=$(( (current / 5) * 5 + $1 ))
+    [ "$snapped" -lt 0 ]   && snapped=0
+    [ "$snapped" -gt 110 ] && snapped=110
+    wpctl set-volume "$DEFAULT_SINK" "${snapped}%"
+}
+
 # Handle volume changes
 case $1 in
 	up)
 		old_volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2}')
 		wpctl set-mute "$DEFAULT_SINK" 0
-		wpctl set-volume -l 1.1 "$DEFAULT_SINK" 5%+
+		snap_volume 5
 		new_volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2}')
 		[ "$old_volume" != "$new_volume" ] && play_sound
 		;;
 	down)
 		wpctl set-mute "$DEFAULT_SINK" 0
-		wpctl set-volume -l 1.1 "$DEFAULT_SINK" 5%-
+		snap_volume -5
 		play_sound
 		;;
 	mute)

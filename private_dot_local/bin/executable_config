@@ -1,0 +1,8 @@
+#!/bin/bash
+
+file=$(chezmoi managed --include=files | \
+    fzf --preview="chezmoi cat ~/{} | bat --style=numbers --color=always")
+
+if [ -n "$file" ]; then
+    chezmoi edit --apply "$HOME/$file"
+fi

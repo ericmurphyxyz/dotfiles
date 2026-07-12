@@ -8,7 +8,7 @@ SELECTION="$(printf "󰌾  Lock
 
 case $SELECTION in
 	*"󰌾  Lock")
-		swaylock;;
+		lock;;
 	*"󰤄  Suspend")
 		systemctl suspend;;
 	*"󰍃  Log out")

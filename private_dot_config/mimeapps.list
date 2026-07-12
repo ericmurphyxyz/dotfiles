@@ -1,0 +1,8 @@
+
+[Default Applications]
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop
+image/jpeg=imv.desktop
+image/png=imv.desktop
+image/gif=imv.desktop
+image/webp=imv.desktop
+application/pdf=org.pwmt.zathura.desktop

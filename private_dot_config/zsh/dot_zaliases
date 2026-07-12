@@ -4,7 +4,6 @@ alias p="paru"
 alias copy="wl-copy"
 alias c="clear"
 
-alias cz="chezmoi"
 alias cza="chezmoi add"
 alias czc="chezmoi cd"
 
@@ -13,6 +12,8 @@ command -v bat &>/dev/null && alias cat="bat"
 command -v eza &>/dev/null && alias ls="eza --icons" && alias ll="eza -lah --icons" && alias tree="eza --tree --icons"
 command -v rg &>/dev/null && alias grep="rg"
 command -v fd &>/dev/null && alias find="fd"
+alias v=$EDITOR
+alias vim=$EDITOR
 
 # Git
 alias g="git"

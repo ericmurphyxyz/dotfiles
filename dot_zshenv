@@ -21,6 +21,9 @@ export LC_ALL="en_US.UTF-8"
 # PATH modifications
 export PATH="$HOME/.local/bin:$PATH"
 
+# Theming man pages
+export MANPAGER="bat -plman"
+
 # Catppuccin theme for fzf
 export FZF_DEFAULT_OPTS=" \
 --color=bg+:#313244,bg:#1E1E2E,spinner:#F5E0DC,hl:#F38BA8 \

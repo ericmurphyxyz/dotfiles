@@ -1,0 +1,6 @@
+#!/bin/sh
+# Screen-lock wrapper for swaylock to wipe the GPG passphrase out of gpg-agent's
+# memory before locking so the secret isn't sitting in RAM
+# https://petrmanek.cz/blog/2022/unlocking-gpg-agent/
+gpg-connect-agent reloadagent /bye
+exec swaylock

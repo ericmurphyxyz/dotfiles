@@ -22,6 +22,14 @@ battery_info=$(upower -i "$BATTERY_PATH")
 battery_level=$(echo "$battery_info" | grep -E "percentage" | awk '{print $2}' | tr -d '%')
 battery_state=$(echo "$battery_info" | grep -E "state" | awk '{print $2}')
 
+snap_volume() {
+    current=$(wpctl get-volume "$DEFAULT_SINK" | awk '{print int($2 * 100)}')
+    snapped=$(( (current / 5) * 5 + $1 ))
+    [ "$snapped" -lt 0 ]   && snapped=0
+    [ "$snapped" -gt 110 ] && snapped=110
+    wpctl set-volume "$DEFAULT_SINK" "${snapped}%"
+}
+
 # Reset notifications when the computer starts charging
 if [ "$battery_state" = "charging" ] || [ "$battery_state" = "fully-charged" ]; then
 	[ -f "$EMPTY_FILE" ] && rm "$EMPTY_FILE"

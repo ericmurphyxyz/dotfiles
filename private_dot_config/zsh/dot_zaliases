@@ -4,6 +4,7 @@ alias p="paru"
 alias copy="wl-copy"
 alias c="clear"
 
+alias cz="chezmoi"
 alias cza="chezmoi add"
 alias czc="chezmoi cd"
 

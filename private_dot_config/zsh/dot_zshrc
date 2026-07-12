@@ -124,12 +124,14 @@ function y() {
 }
 
 # Fuzzy find all config files and open and edit with chezmoi
-cz() {
+cze() {
   local file
-  file=$(chezmoi list --path-style absolute --include=files 2>/dev/null | \
+  file=$(chezmoi managed --path-style absolute --include=files 2>/dev/null | \
     command grep -Eiv '\.(jpe?g|png|oga)$' | \
-    fzf --preview 'chezmoi cat {} | bat --color=always -p --file-name {}')
-  [[ -n "$file" ]] && chezmoi edit --apply -- "$file"
+    fzf --preview 'bat --color=always --style=numbers --paging=never {} 2>/dev/null || cat {}')
+  [[ -z "$file" ]] && return
+  "${EDITOR:-nvim}" "$file"
+  chezmoi re-add -- "$file"
 }
 
 # -----------------------------------------------------------------------------

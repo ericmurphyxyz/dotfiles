@@ -7,8 +7,8 @@ sudo pacman -Syu --needed --noconfirm git base-devel chezmoi
 
 # Install paru, an AUR helper
 if ! command -v paru >/dev/null; then
-  git clone https://aur.archlinux.org/paru-bin.git /tmp/paru-bin
-  (cd /tmp/paru-bin && makepkg -si --noconfirm)
+  git clone https://aur.archlinux.org/paru.git /tmp/paru
+  (cd /tmp/paru && makepkg -sir --noconfirm)
 fi
 
 # Clone my dotfiles to ~/.local/share/chezmoi and applies to ~

@@ -305,8 +305,6 @@ binds {
     Mod+B hotkey-overlay-title="Open Wifi Menu" { spawn "iwmenu" "-l" "fuzzel" "-s" "2"; }
     Mod+SHIFT+B hotkey-overlay-title="Open Bluetooth Menu" { spawn "bzmenu" "-l" "fuzzel" "-s" "2"; }
     Mod+CTRL+B hotkey-overlay-title="Open PipeWire Menu" { spawn "pwmenu" "-l" "fuzzel" "-s" "2"; }
-    Mod+G hotkey-overlay-title="Open Password Menu" { spawn "fuzzel-gopass"; }
-    Mod+SHIFT+G hotkey-overlay-title="Open Password Menu" { spawn "fuzzel-gopass" "-c"; }
 
     Mod+V hotkey-overlay-title="Open Clipboard Manager" { spawn-sh "cliphist list | fuzzel --dmenu --width 50 --with-nth 2 | cliphist decode | wl-copy"; }
 

@@ -1,0 +1,20 @@
+#!/bin/sh
+# Send a notification when the laptop is plugged in/unplugged
+# Add the following to /etc/udev/rules.d/60-power.rules (replace USERNAME with your user)
+
+# ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="0", RUN+="/usr/bin/systemd-run --machine=USERNAME@.host --user /home/USERNAME/.local/bin/battery-charging discharging"
+# ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="1", RUN+="/usr/bin/systemd-run --machine=USERNAME@.host --user /home/USERNAME/.local/bin/battery-charging charging"
+
+ICON_PATH="$HOME/.local/share/icons"
+BATTERY_STATE=$1
+battery_level=$(upower -i /org/freedesktop/UPower/devices/DisplayDevice | awk '/percentage:/ {gsub(/%/,"",$2); print $2}')
+
+case "$BATTERY_STATE" in
+  "charging") BATTERY_CHARGING="Charging" ; BATTERY_ICON="charging" ;;
+  "discharging") BATTERY_CHARGING="Discharging" ; BATTERY_ICON="discharging" ;;
+esac
+
+# Send notification
+notify-send -a battery -h string:x-canonical-private-synchronous:battery \
+  "${BATTERY_CHARGING}" "${battery_level}% of battery charged." \
+  -u normal -i "${ICON_PATH}/battery-${BATTERY_ICON}.svg" -t 5000

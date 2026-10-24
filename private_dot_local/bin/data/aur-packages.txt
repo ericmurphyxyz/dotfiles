@@ -4,7 +4,6 @@ downgrade
 google-chrome
 google-cloud-cli
 iwmenu-git
-pam-gnupg
 ripdrag
 spotify
 spotx-git

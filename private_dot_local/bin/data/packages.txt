@@ -34,7 +34,6 @@ gimp
 git
 github-cli
 gnome-keyring
-gopass
 gst-libav
 gst-plugin-pipewire
 gst-plugins-bad

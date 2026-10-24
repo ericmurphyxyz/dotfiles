@@ -1,51 +1,80 @@
 #!/bin/sh
-# Adjust laptop screen brightness with natural scaling and send a notification
+# Adjust screen brightness on whichever monitor is focused and send a notification
 # Usage: notify-brightness up|down
 
 # Configuration
 MIN_BRIGHTNESS=30
+STEP=5
 ICON_PATH="$HOME/.local/share/icons"
 ICON_BRIGHTNESS="brightness.svg"
 
-# Get current brightness percentage
-get_brightness() {
-	brightnessctl -e4 -m | awk -F, '{print substr($4, 0, length($4)-1)}'
-}
+# Ignore key repeats while the last change is still running
+exec 9>"${XDG_RUNTIME_DIR:-/tmp}/notify-brightness.lock"
+flock -n 9 || exit 0
 
-# Handle brightness changes
-case $1 in
-	up)
-		brightnessctl -e4 set 5%+
-		;;
-	down)
-		# Only apply minimum if MIN_BRIGHTNESS > 0
-		if [ "$MIN_BRIGHTNESS" -gt 0 ]; then
-			current=$(get_brightness)
-			if [ "$current" -gt "$MIN_BRIGHTNESS" ]; then
-				brightnessctl -e4 set 5%-
-				# Restore to minimum if we dropped below
-				new=$(get_brightness)
-				if [ "$new" -lt "$MIN_BRIGHTNESS" ]; then
-					brightnessctl -e4 set "${MIN_BRIGHTNESS}%"
-				fi
-			fi
-		else
-			# No minimum protection
-			brightnessctl -e4 set 5%-
-		fi
-		;;
-	*)
-		echo "Usage: notify-brightness up|down"
-		exit 1
-		;;
+# Check which monitor we are on (laptop screen or external), requires using niri to detect the monitor
+MONITOR=$(niri msg --json focused-output | jq -r '.name')
+case "$MONITOR" in
+  eDP-*|LVDS-*|DSI-*)
+    BACKEND=laptop
+    ;;
+  *)
+    BACKEND=ddcutil
+    # Find the external monitor to talk to
+    BUS=$(readlink -f /sys/class/drm/card*-"$MONITOR"/ddc | sed 's/.*i2c-//')
+    if [ -z "$BUS" ]; then
+      echo "No DDC bus found for monitor: $MONITOR" >&2
+      exit 1
+    fi
+    # Skip the extra checks to make the command run faster
+    DDCUTIL="ddcutil --bus $BUS --sleep-multiplier 0.1 --skip-ddc-checks"
+    ;;
 esac
 
-# Get current brightness and send notification
+# Get current brightness percentage
+get_brightness() {
+  if [ "$BACKEND" = "laptop" ]; then
+    brightnessctl -e4 -m | awk -F, '{print substr($4, 0, length($4)-1)}'
+  else
+    $DDCUTIL getvcp 10 2>/dev/null | sed -n 's/.*current value = *\([0-9]*\).*/\1/p'
+  fi
+}
+
+# Set brightness to a percentage
+set_brightness() {
+  if [ "$BACKEND" = "laptop" ]; then
+    brightnessctl -e4 -q set "$1%"
+  else
+    $DDCUTIL setvcp 10 "$1" --noverify >/dev/null 2>&1
+    # Give the monitor a moment to catch up
+    sleep 0.08
+  fi
+}
+
+# Work out the new brightness
 brightness=$(get_brightness)
+case $1 in
+  up)
+    brightness=$((brightness + STEP))
+    [ "$brightness" -gt 100 ] && brightness=100
+    ;;
+  down)
+    brightness=$((brightness - STEP))
+    # Don't go below the minimum
+    [ "$brightness" -lt "$MIN_BRIGHTNESS" ] && brightness=$MIN_BRIGHTNESS
+    ;;
+  *)
+    echo "Usage: notify-brightness up|down"
+    exit 1
+    ;;
+esac
+set_brightness "$brightness"
+
+# Send notification
 notify-send -t 1000 \
-	-a 'brightness-notify' \
-	-i "$ICON_PATH/$ICON_BRIGHTNESS" \
-	-h string:x-canonical-private-synchronous:brightness \
-	-h int:value:"$brightness" \
-	"Backlight" \
-	"Currently at ${brightness}%"
+  -a 'brightness-notify' \
+  -i "$ICON_PATH/$ICON_BRIGHTNESS" \
+  -h string:x-canonical-private-synchronous:brightness \
+  -h int:value:"$brightness" \
+  "Backlight" \
+  "Currently at ${brightness}%"

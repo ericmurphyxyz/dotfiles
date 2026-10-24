@@ -43,6 +43,7 @@ input {
         // natural-scroll
         // accel-speed 0.2
         // accel-profile "flat"
+        scroll-factor 1
         // scroll-method "no-scroll"
     }
 
@@ -103,7 +104,8 @@ output "eDP-1" {
 }
 
 output "HDMI-A-1" {
-    scale 2.5
+    scale 1
+    position x=0 y=0
 }
 
 // Settings that influence how windows are positioned and sized.
@@ -189,24 +191,16 @@ overview {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 
-// This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "waybar"
-spawn-at-startup "mako" // Notification daemon
-spawn-sh-at-startup "wbg -s $HOME/.local/share/wallpaper.png" // Wallpaper
-
-spawn-sh-at-startup "wl-clip-persist --clipboard regular" // Save clipboard after window close
-spawn-sh-at-startup "wl-paste --watch cliphist store" // Clipboard manager
-
-// Start xdg-desktop-portal-wlr for screen sharing support
+spawn-at-startup "mako"
+spawn-sh-at-startup "wbg -s $HOME/.local/share/wallpaper.png"
+spawn-at-startup "wl-clip-persist" "--clipboard" "regular"
+spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 spawn-at-startup "xdg-desktop-portal-wlr"
 spawn-at-startup "xdg-desktop-portal-gtk"
-
-// Start swayidle
 spawn-sh-at-startup "swayidle -w timeout 600 'niri msg action power-off-monitors' timeout 1800 'systemctl suspend'"
 spawn-at-startup "sway-audio-idle-inhibit"
-
-// To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
-// spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
+spawn-at-startup "playerctld" "daemon"
 
 hotkey-overlay {
     skip-at-startup
@@ -315,7 +309,6 @@ binds {
     Mod+SHIFT+G hotkey-overlay-title="Open Password Menu" { spawn "fuzzel-gopass" "-c"; }
 
     Mod+V hotkey-overlay-title="Open Clipboard Manager" { spawn-sh "cliphist list | fuzzel --dmenu --width 50 --with-nth 2 | cliphist decode | wl-copy"; }
-    Mod+P { spawn-sh "playerctl play-pause"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
@@ -332,6 +325,8 @@ binds {
     XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
     XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
     XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
+
+    XF86Favorites        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
 
     // Example brightness key mappings for brightnessctl.
     // You can use regular spawn with multiple arguments too (to avoid going through "sh"),

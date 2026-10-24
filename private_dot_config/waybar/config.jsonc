@@ -1,39 +1,40 @@
 // -*- mode: jsonc -*-
 {
-    "height": 32,
-    "spacing": 4, // Gaps between modules (4px)
+  "height": 32,
+  "spacing": 4, // Gaps between modules (4px)
 
-    "modules-left": [
-        "niri/workspaces"
+  "modules-left": [
+    "niri/workspaces"
     ],
     "modules-center": [
-        "clock"
+      "clock"
     ],
     "modules-right": [
-        "tray",
-	"custom/pacman",
-        "network",
-        "bluetooth",
-        "wireplumber",
-        "battery",
-	"custom/power"
+      "tray",
+      "custom/pacman",
+      "temperature",
+      "network",
+      "bluetooth",
+      "wireplumber",
+      "battery",
+      "custom/power"
     ],
     "niri/workspaces": {
-        "format": "{icon}",
-        "format-icons": {
-            "1": "1",
-            "2": "2",
-            "3": "3",
-            "4": "4",
-            "5": "5",
-            "6": "6",
-            "7": "7",
-            "8": "8",
-            "9": "9"
-	},
-        "persistent-workspaces": {
-            "*": 5
-        }
+      "format": "{icon}",
+      "format-icons": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9"
+      },
+      "persistent-workspaces": {
+        "*": 5
+      }
     },
     "tray": {
         // "icon-size": 21,
@@ -44,21 +45,21 @@
         // }
     },
     "clock": {
-        "format": "{:%a, %b %d  %H:%M}",
-        "tooltip-format": "{calendar}"
+      "format": "{:%a, %b %d  %H:%M}",
+      "tooltip-format": "{calendar}"
     },
     "battery": {
-        "states": {
-            "warning": 20,
-            "critical": 5
-        },
-        "format": "{icon}",
-        "format-full": "{icon}",
-        "format-charging": "󱐋",
-        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-        "tooltip-format-charging": "{capacity}% full",
-        "tooltip-format-full": "{capacity}% full",
-        "tooltip-format-discharging": "{capacity}% full"
+      "states": {
+        "warning": 20,
+        "critical": 5
+      },
+      "format": "{icon}",
+      "format-full": "{icon}",
+      "format-charging": "󱐋",
+      "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+      "tooltip-format-charging": "{capacity}% full",
+      "tooltip-format-full": "{capacity}% full",
+      "tooltip-format-discharging": "{capacity}% full"
     },
     "network": {
       "format": "{icon}",
@@ -77,30 +78,36 @@
       "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
       "on-click": "bzmenu -l fuzzel -s 2"
     },
+    "temperature": {
+      "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon*/temp1_input",
+      "critical-threshold": 90,
+      "format": "{temperatureC}°",
+      "format-icons": ["", "", ""]
+    },
     "custom/pacman": {
-        "format": "{icon}",
-        "return-type": "json",
-        "format-icons": {
-            "pending-updates": "󰏔",
-            "updated": ""
-        },
-        "exec-if": "which waybar-updates",
-        "exec": "waybar-updates"
+      "format": "{icon}",
+      "return-type": "json",
+      "format-icons": {
+        "pending-updates": "󰏔",
+        "updated": ""
+      },
+      "exec-if": "which waybar-updates",
+      "exec": "waybar-updates"
     },
     "wireplumber": {
-        "format": "{icon}",
-        "format-muted": "󰖁",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
-        "format-icons": {
-            "default": ["󰕾"]
-        },
-        "on-click": "pwmenu -l fuzzel -s 2",
-	"tooltip-format": "Volume at {volume}%"
+      "format": "{icon}",
+      "format-muted": "󰖁",
+      "format-source": "{volume}% ",
+      "format-source-muted": "",
+      "format-icons": {
+        "default": ["󰕾"]
+      },
+      "on-click": "pwmenu -l fuzzel -s 2",
+      "tooltip-format": "Volume at {volume}%"
     },
     "custom/power": {
-        "format" : "󰐥",
-	"tooltip": false,
-	"on-click": "powermenu"
+      "format" : "󰐥",
+      "tooltip": false,
+      "on-click": "powermenu"
     }
 }

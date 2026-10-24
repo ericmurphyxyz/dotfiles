@@ -1,5 +1,4 @@
 font=JetBrainsMono Nerd Font 11
-text-color=#ebdbb2
 layer=overlay
 width=300
 max-icon-size=34
@@ -8,7 +7,7 @@ background-color=#11111b
 text-color=#cdd6f4
 border-color=#cba6f7
 progress-color=over #313244
-border-size=0
+border-size=2
 
 ignore-timeout=0
 default-timeout=5000

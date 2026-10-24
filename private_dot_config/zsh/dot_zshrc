@@ -74,6 +74,7 @@ repos=(
   zsh-users/zsh-autosuggestions
   zdharma-continuum/fast-syntax-highlighting
   zsh-users/zsh-completions
+  jeffreytse/zsh-vi-mode
 )
 plugin-load $repos
 
@@ -108,11 +109,11 @@ zstyle ':fzf-tab:*' use-fzf-default-opts yes              # Colorize fzf
 # Init fnm (better nvm)
 eval "$(fnm env --use-on-cd --shell zsh)"
 
-# Init fzf
-source <(fzf --zsh)
-
 # Init zoxide for a better cd command
 eval "$(zoxide init zsh)"
+
+# Init atuin (better history search) (has to be loaded after vi-mode)
+zvm_after_init_commands+=('eval "$(atuin init zsh --disable-ai)"')
 
 # Change current working directory when exiting yazi by starting it with y
 function y() {
@@ -128,9 +129,9 @@ cze() {
   local file
   file=$(chezmoi managed --path-style absolute --include=files 2>/dev/null | \
     command grep -Eiv '\.(jpe?g|png|oga)$' | \
-    fzf --preview 'bat --color=always --style=numbers --paging=never {} 2>/dev/null || cat {}')
+    fzf --preview 'bat --color=always --style=numbers --paging=never {} 2>/dev/null')
   [[ -z "$file" ]] && return
-  "${EDITOR:-nvim}" "$file"
+  "${EDITOR}" "$file"
   chezmoi re-add -- "$file"
 }
 

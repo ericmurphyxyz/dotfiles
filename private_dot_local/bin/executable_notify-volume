@@ -8,81 +8,89 @@ ICON_NORMAL="volume.svg"
 ICON_MUTED="mute.svg"
 SOUND_FILE="${XDG_DATA_HOME:-$HOME/.local/share}/sounds/audio-volume-change.oga"
 DEFAULT_SINK="@DEFAULT_AUDIO_SINK@"
+MAX_VOLUME=125
 
 # Play sound effect
 play_sound() {
-	paplay "$SOUND_FILE" &
+  paplay "$SOUND_FILE" &
 }
 
-# Round volume to the nearest 5%
+# Get current volume level as percentage, rounded so 1.15 reads as 115 and not 114
+get_volume() {
+  wpctl get-volume "$DEFAULT_SINK" | awk '{print int($2 * 100 + 0.5)}'
+}
+
+# Round volume to the nearest 5%, floor on the way up and ceiling on the way down
 snap_volume() {
-    current=$(wpctl get-volume "$DEFAULT_SINK" | awk '{print int($2 * 100)}')
-    snapped=$(( (current / 5) * 5 + $1 ))
-    [ "$snapped" -lt 0 ]   && snapped=0
-    [ "$snapped" -gt 110 ] && snapped=110
-    wpctl set-volume "$DEFAULT_SINK" "${snapped}%"
+  current=$(get_volume)
+  if [ "$1" -gt 0 ]; then
+    snapped=$(( current / 5 * 5 + 5 ))
+  else
+    snapped=$(( (current + 4) / 5 * 5 - 5 ))
+  fi
+  [ "$snapped" -lt 0 ] && snapped=0
+  [ "$snapped" -gt "$MAX_VOLUME" ] && snapped=$MAX_VOLUME
+  wpctl set-volume "$DEFAULT_SINK" "${snapped}%"
 }
 
 # Handle volume changes
 case $1 in
-	up)
-		old_volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2}')
-		wpctl set-mute "$DEFAULT_SINK" 0
-		snap_volume 5
-		new_volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2}')
-		[ "$old_volume" != "$new_volume" ] && play_sound
-		;;
-	down)
-		wpctl set-mute "$DEFAULT_SINK" 0
-		snap_volume -5
-		play_sound
-		;;
-	mute)
-		old_state=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
-		wpctl set-mute "$DEFAULT_SINK" toggle
-		case "$old_state" in
-			*MUTED*) play_sound ;;
-		esac
-		;;
-	*)
-		echo "Usage: notify-volume up|down|mute"
-		exit 1
-		;;
+  up)
+    wpctl set-mute "$DEFAULT_SINK" 0
+    old_volume=$(get_volume)
+    snap_volume 5
+    [ "$old_volume" != "$(get_volume)" ] && play_sound
+    ;;
+  down)
+    wpctl set-mute "$DEFAULT_SINK" 0
+    old_volume=$(get_volume)
+    snap_volume -5
+    [ "$old_volume" != "$(get_volume)" ] && play_sound
+    ;;
+  mute)
+    old_state=$(wpctl get-volume "$DEFAULT_SINK")
+    wpctl set-mute "$DEFAULT_SINK" toggle
+    case "$old_state" in
+      *MUTED*) play_sound ;;
+    esac
+    ;;
+  *)
+    echo "Usage: notify-volume up|down|mute"
+    exit 1
+    ;;
 esac
 
 # Get current volume level as percentage
-volume=$(wpctl get-volume "$DEFAULT_SINK" | awk '{print int($2 * 100)}')
+volume=$(get_volume)
 
 # Send notification with appropriate icon
 send_notification() {
-	is_muted=$1
-
-	if [ "$is_muted" = "mute" ]; then
-		text="Currently muted"
-		icon="$ICON_PATH/$ICON_MUTED"
-	else
-		text="Currently at ${volume}%"
-		icon="$ICON_PATH/$ICON_NORMAL"
-	fi
-
-	notify-send -t 2000 \
-		-a 'notify-volume' \
-		-i "$icon" \
-		-h string:x-canonical-private-synchronous:volume \
-		-h int:value:"$volume" \
-		"Volume" \
-		"$text"
+  is_muted=$1
+  if [ "$is_muted" = "mute" ]; then
+    text="Currently muted"
+    icon="$ICON_PATH/$ICON_MUTED"
+  else
+    text="Currently at ${volume}%"
+    icon="$ICON_PATH/$ICON_NORMAL"
+  fi
+  notify-send -t 2000 \
+    -a 'notify-volume' \
+    -i "$icon" \
+    -h string:x-canonical-private-synchronous:volume \
+    -h int:value:"$volume" \
+    "Volume" \
+    "$text"
 }
 
 # Determine if muted and send appropriate notification
 case $1 in
-	mute)
-		case "$(wpctl get-volume "$DEFAULT_SINK")" in
-			*MUTED*) send_notification mute ;;
-			*)       send_notification ;;
-		esac
-		;;
-	*)
-		send_notification
-		;;
+  mute)
+    case "$(wpctl get-volume "$DEFAULT_SINK")" in
+      *MUTED*) send_notification mute ;;
+      *)       send_notification ;;
+    esac
+    ;;
+  *)
+    send_notification
+    ;;
 esac

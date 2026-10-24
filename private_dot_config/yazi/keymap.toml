@@ -1,0 +1,50 @@
+# Additional bookmarks
+[[mgr.prepend_keymap]]
+on   = ["g", "s"]
+run  = "cd ~/Pictures/Screenshots"
+desc = "Go to screenshots"
+
+# Open files or enter directories with just one key
+# https://github.com/yazi-rs/plugins/tree/main/smart-enter.yazi
+[[mgr.prepend_keymap]]
+on   = "l"
+run  = "plugin smart-enter"
+desc = "Enter the child directory, or open the file"
+
+# Jump to char ala vim with f
+# https://github.com/yazi-rs/plugins/tree/main/jump-to-char.yazi
+[[mgr.prepend_keymap]]
+on   = "f"
+run  = "plugin jump-to-char"
+desc = "Jump to char"
+
+# Chmod from yazi
+# https://github.com/yazi-rs/plugins/tree/main/chmod.yazi
+[[mgr.prepend_keymap]]
+on   = [ "c", "m" ]
+run  = "plugin chmod"
+desc = "Chmod on selected files"
+
+[[mgr.prepend_keymap]]
+on   = "!"
+for  = "unix"
+run  = 'shell "$SHELL" --block'
+desc = "Open $SHELL here"
+
+# Get file size of directory or selection
+# https://github.com/pirafrank/what-size.yazi
+[[mgr.prepend_keymap]]
+on = [ ".", "s" ]
+run  = "plugin what-size"
+desc = "Calc size of selection or cwd"
+
+# Get mediainfo of current file
+[[mgr.prepend_keymap]]
+on   = "i"
+run  = 'shell "mediainfo \"$1\" | less" --block'
+desc = "Show mediainfo for hovered file"
+
+# Drag and drop with Dragon
+[[mgr.prepend_keymap]]
+on  = "<C-n>"
+run = "shell -- ripdrag %s -x 2>/dev/null &"

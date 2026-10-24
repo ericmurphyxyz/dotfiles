@@ -2,51 +2,47 @@
 # Send a notification if the laptop battery is low or critical.
 # Set on a systemd timer (~/.config/systemd/user/battery-alert.timer).
 
-# Required for notifications to work from systemd
-export DISPLAY=:0
-export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
-
 # Configuration
-WARNING_LEVEL=20
-CRITICAL_LEVEL=5
+WARNING_LEVEL=25
+CRITICAL_LEVEL=10
 ICON_PATH="$HOME/.local/share/icons"
-ICON_BATTERY="battery.svg"
-BATTERY_PATH="/org/freedesktop/UPower/devices/battery_BAT0"
+ICON_BATTERY="battery-critical.svg"
+BATTERY_PATH="/org/freedesktop/UPower/devices/DisplayDevice"
 
 # State files to prevent duplicate notifications
-EMPTY_FILE="/tmp/batteryempty"
-CRITICAL_FILE="/tmp/batterycritical"
+EMPTY_FILE="${XDG_RUNTIME_DIR:-/tmp}/batteryempty"
+CRITICAL_FILE="${XDG_RUNTIME_DIR:-/tmp}/batterycritical"
 
 # Get battery info from upower
 battery_info=$(upower -i "$BATTERY_PATH")
-battery_level=$(echo "$battery_info" | grep -E "percentage" | awk '{print $2}' | tr -d '%')
-battery_state=$(echo "$battery_info" | grep -E "state" | awk '{print $2}')
-
-snap_volume() {
-    current=$(wpctl get-volume "$DEFAULT_SINK" | awk '{print int($2 * 100)}')
-    snapped=$(( (current / 5) * 5 + $1 ))
-    [ "$snapped" -lt 0 ]   && snapped=0
-    [ "$snapped" -gt 110 ] && snapped=110
-    wpctl set-volume "$DEFAULT_SINK" "${snapped}%"
-}
+battery_level=$(echo "$battery_info" | awk '/percentage:/ {gsub(/%/,"",$2); print $2}')
+battery_state=$(echo "$battery_info" | awk '/state:/ {print $2}')
 
 # Reset notifications when the computer starts charging
 if [ "$battery_state" = "charging" ] || [ "$battery_state" = "fully-charged" ]; then
-	[ -f "$EMPTY_FILE" ] && rm "$EMPTY_FILE"
-	[ -f "$CRITICAL_FILE" ] && rm "$CRITICAL_FILE"
+  [ -f "$EMPTY_FILE" ] && rm "$EMPTY_FILE"
+  [ -f "$CRITICAL_FILE" ] && rm "$CRITICAL_FILE"
 fi
 
 # Send notifications based on battery level
-if [ "$battery_level" -le "$WARNING_LEVEL" ] && [ "$battery_state" = "discharging" ] && [ ! -f "$EMPTY_FILE" ]; then
-	notify-send -t 0 \
-		-i "$ICON_PATH/$ICON_BATTERY" \
-		"Low Battery" \
-		"${battery_level}% of battery remaining"
-	touch "$EMPTY_FILE"
-elif [ "$battery_level" -le "$CRITICAL_LEVEL" ] && [ "$battery_state" = "discharging" ] && [ ! -f "$CRITICAL_FILE" ]; then
-	notify-send -t 0 \ 
-		-i "$ICON_PATH/$ICON_BATTERY" \	
-		"Battery Critical" \
-		"The computer will shutdown soon"
-	touch "$CRITICAL_FILE"
+if [ "$battery_level" -le "$CRITICAL_LEVEL" ] && [ "$battery_state" = "discharging" ] && [ ! -f "$CRITICAL_FILE" ]; then
+  notify-send -t 0 \
+    -i "$ICON_PATH/$ICON_BATTERY" \
+    "Battery Critical" \
+    "The computer will shutdown soon"
+  # Mark the warning as sent too, so we don't fire a "Low Battery" notification right after this one
+  touch "$CRITICAL_FILE" "$EMPTY_FILE"
+
+  # --- Hibernate on critical (enable after swap is set up) ---
+  # (update the message above to say "hibernate" when you turn this on)
+  # sleep 60
+  # Re-read state in case the charger was plugged in during the countdown
+  # battery_state=$(upower -i "$BATTERY_PATH" | grep -E "state" | awk '{print $2}')
+  # [ "$battery_state" = "discharging" ] && systemctl hibernate
+elif [ "$battery_level" -le "$WARNING_LEVEL" ] && [ "$battery_state" = "discharging" ] && [ ! -f "$EMPTY_FILE" ]; then
+  notify-send -t 0 \
+    -i "$ICON_PATH/$ICON_BATTERY" \
+    "Low Battery" \
+    "${battery_level}% of battery remaining"
+  touch "$EMPTY_FILE"
 fi

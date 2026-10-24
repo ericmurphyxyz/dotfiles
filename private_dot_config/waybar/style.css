@@ -182,7 +182,7 @@ label:focus {
 }
 
 #temperature.critical {
-    background-color: #eb4d4b;
+    color: @red;
 }
 
 #tray > .passive {

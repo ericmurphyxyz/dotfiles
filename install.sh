@@ -17,16 +17,31 @@ if ! command -v paru >/dev/null; then
 fi
 
 # Clone my dotfiles to ~/.local/share/chezmoi and applies to ~
-chezmoi init --apply --branch niri ericmurphyxyz
+# On reruns init won't pull new commits, so update instead
+if [ -d ~/.local/share/chezmoi ]; then
+  chezmoi update
+else
+  chezmoi init --apply --branch niri ericmurphyxyz
+fi
 
 src=~/.local/share/chezmoi
 sudo pacman -S --needed --noconfirm --ask 4 - < "$src/private_dot_local/bin/data/packages.txt"
 paru -S --needed --noconfirm --skipreview - < "$src/private_dot_local/bin/data/aur-packages.txt"
 
 # Copy system config files to etc/ since chezmoi only manages ~
+# Also let the wheel group use sudo without a password so I don't have to keep typing it in
+sudo visudo -cf "$src/etc/sudoers.d/wheel"
 sudo cp -r "$src/etc/." /etc/
+sudo chmod 440 /etc/sudoers.d/wheel
+
+# Unlock my GPG key (for gopass) with my login/swaylock password via pam_gnupg
+# Appended instead of copied so the distro's PAM files stay intact
+grep -q pam_gnupg /etc/pam.d/system-local-login ||
+  printf 'auth     optional  pam_gnupg.so store-only\nsession  optional  pam_gnupg.so\n' | sudo tee -a /etc/pam.d/system-local-login >/dev/null
+grep -q pam_gnupg /etc/pam.d/swaylock ||
+  echo 'auth  optional  pam_gnupg.so' | sudo tee -a /etc/pam.d/swaylock >/dev/null
 
 # Start up various systemd services I use
 sudo systemctl enable bluetooth keyd tlp avahi-daemon cronie docker.socket fstrim.timer paccache.timer
 systemctl --user enable battery-alert.timer
-chsh -s /bin/zsh
+sudo chsh -s /bin/zsh "$USER"

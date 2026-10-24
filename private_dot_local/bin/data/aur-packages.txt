@@ -7,8 +7,6 @@ google-cloud-cli
 iwmenu-git
 mullvad-browser-bin
 pam-gnupg
-paru
-paru-debug
 ripdrag
 spotify
 spotx-git

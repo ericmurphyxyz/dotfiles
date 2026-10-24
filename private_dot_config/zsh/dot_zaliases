@@ -1,6 +1,6 @@
 alias ..="cd .."
 
-alias p="yay"
+alias p="paru"
 alias copy="wl-copy"
 alias c="clear"
 

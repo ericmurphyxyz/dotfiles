@@ -1,11 +1,9 @@
 brave-bin
-brave-origin-bin
 bzmenu-git
 downgrade
 google-chrome
 google-cloud-cli
 iwmenu-git
-mullvad-browser-bin
 pam-gnupg
 ripdrag
 spotify

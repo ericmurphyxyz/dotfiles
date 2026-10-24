@@ -5,10 +5,15 @@ set -e
 
 sudo pacman -Syu --needed --noconfirm git base-devel chezmoi
 
-# Install yay, an AUR helper (paru has had no release supporting pacman 7.1 / libalpm 16)
-if ! command -v yay >/dev/null; then
-  git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
-  (cd /tmp/yay-bin && makepkg -si --noconfirm)
+# Install paru, an AUR helper.
+if ! command -v paru >/dev/null; then
+  # Check if paru is in the repos (it is in CachyOS)
+  if ! sudo pacman -S --needed --noconfirm paru 2>/dev/null; then
+    # rustup with no default toolchain can't run cargo
+    command -v rustup >/dev/null && rustup default stable
+    git clone https://aur.archlinux.org/paru-git.git /tmp/paru-git
+    (cd /tmp/paru-git && makepkg -sir --noconfirm)
+  fi
 fi
 
 # Clone my dotfiles to ~/.local/share/chezmoi and applies to ~
@@ -16,7 +21,7 @@ chezmoi init --apply --branch niri ericmurphyxyz
 
 src=~/.local/share/chezmoi
 sudo pacman -S --needed --noconfirm --ask 4 - < "$src/private_dot_local/bin/data/packages.txt"
-yay -S --needed - < "$src/private_dot_local/bin/data/aur-packages.txt"
+paru -S --needed --noconfirm --skipreview - < "$src/private_dot_local/bin/data/aur-packages.txt"
 
 # Copy system config files to etc/ since chezmoi only manages ~
 sudo cp -r "$src/etc/." /etc/
